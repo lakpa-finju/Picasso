@@ -47,5 +47,17 @@ class SemanticAnalyzerTest {
 
 		assertEquals(new Addition(new X(), new Y()), actual);
 	}
+	
+	@Test
+	void testParseCeil() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new PlusToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Ceil(new X()), actual);
+	}
 
 }

@@ -5,7 +5,7 @@ import picasso.parser.language.ExpressionTreeNode;
 public class Ceil extends UnaryFunction {
 
 	/**
-	 * Create a floor expression that takes as a parameter the given expression
+	 * Create a Ceil expression that takes as a parameter the given expression
 	 * 
 	 * @param param the expression to floor
 	 */
@@ -14,10 +14,10 @@ public class Ceil extends UnaryFunction {
 	}
 
 	/**
-	 * Evaluates this expression at the given x,y point by evaluating the floor of
+	 * Evaluates this expression at the given x,y point by evaluating the Ceil of
 	 * the function's parameter.
 	 * 
-	 * @return the color from evaluating the floor of the expression's parameter
+	 * @return the color from evaluating the Ceil of the expression's parameter
 	 */
 	@Override
 	public RGBColor evaluate(double x, double y) {
