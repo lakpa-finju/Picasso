@@ -25,7 +25,7 @@ public class Evaluator implements Command<Pixmap> {
 	public void execute(Pixmap target) {
 
 		// create the expression to evaluate just once
-		ExpressionTreeNode expr = createExpression("ceil(x)");
+		ExpressionTreeNode expr = createExpression("abs(x)");
 		// evaluate it for each pixel
 		Dimension size = target.getSize();
 		for (int imageY = 0; imageY < size.height; imageY++) {
@@ -55,7 +55,7 @@ public class Evaluator implements Command<Pixmap> {
 		// generate expression trees from strings, or you can create expression
 		// objects directly (as in the commented statement below).
 
-		String test = "floor(y)";
+		// String test = "floor(y)";
 		//String test = "x + y";
 
 		ExpressionTreeGenerator expTreeGen = new ExpressionTreeGenerator();
