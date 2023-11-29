@@ -8,6 +8,7 @@ import picasso.model.Pixmap;
 import picasso.parser.ExpressionTreeGenerator;
 import picasso.parser.language.ExpressionTreeNode;
 import picasso.util.Command;
+import picasso.view.ButtonPanel;
 
 /**
  * Evaluate an expression for each pixel in a image.
@@ -15,17 +16,28 @@ import picasso.util.Command;
  * @author Robert C Duvall
  * @author Sara Sprenkle
  */
+
 public class Evaluator implements Command<Pixmap> {
 	public static final double DOMAIN_MIN = -1;
 	public static final double DOMAIN_MAX = 1;
-
+	
+	private ButtonPanel buttonpanel; 
+	
+	/**
+	 * Constructor
+	 * @param mybuttonpanel
+	 */
+	public Evaluator(ButtonPanel mybuttonpanel) {
+		buttonpanel = mybuttonpanel; 
+	}
 	/**
 	 * Evaluate an expression for each point in the image.
 	 */
 	public void execute(Pixmap target) {
 
 		// create the expression to evaluate just once
-		ExpressionTreeNode expr = createExpression("ceil(x)");
+		String input = buttonpanel.getInput(); 
+		ExpressionTreeNode expr = createExpression(input);
 		// evaluate it for each pixel
 		Dimension size = target.getSize();
 		for (int imageY = 0; imageY < size.height; imageY++) {
@@ -55,7 +67,7 @@ public class Evaluator implements Command<Pixmap> {
 		// generate expression trees from strings, or you can create expression
 		// objects directly (as in the commented statement below).
 
-		String test = "floor(y)";
+		// String test = "floor(y)";
 		//String test = "x + y";
 
 		ExpressionTreeGenerator expTreeGen = new ExpressionTreeGenerator();

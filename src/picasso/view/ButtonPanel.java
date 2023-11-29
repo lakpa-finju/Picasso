@@ -4,10 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JTextField;
 
 import picasso.model.Pixmap;
 import picasso.util.Command;
 import picasso.util.NamedCommand;
+import picasso.util.ThreadedCommand;
+import picasso.view.commands.Evaluator;
 
 /**
  * The collection of commands represented as buttons that apply to the active
@@ -18,6 +21,7 @@ import picasso.util.NamedCommand;
 @SuppressWarnings("serial")
 public class ButtonPanel extends JPanel {
 	private Canvas myView;
+	private JTextField textField; 
 
 	/**
 	 * Create panel that will update the given picasso.view.
@@ -26,6 +30,9 @@ public class ButtonPanel extends JPanel {
 	 */
 	public ButtonPanel(Canvas view) {
 		myView = view;
+		textField = new JTextField(20);
+		this.add(textField); 
+
 	}
 
 	/**
@@ -55,4 +62,22 @@ public class ButtonPanel extends JPanel {
 	public void add(NamedCommand<Pixmap> action) {
 		add(action.getName(), action);
 	}
+
+	/**
+	 * Returns the input text from the text box
+	 * @return the input text from the text box 
+	 */
+	public String getInput() {
+		return textField.getText(); 
+	}
+	
+	public void enterToEvaluate(ThreadedCommand<Pixmap> evalutorAction) {
+		textField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				evalutorAction.execute(myView.getPixmap());
+				myView.refresh();
+			}
+		});
+	}
+	
 }
