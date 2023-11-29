@@ -8,7 +8,12 @@ import picasso.parser.tokens.Token;
 
 public class CeilAnalyzer implements SemanticAnalyzerInterface {
 
-
+	/**
+	 * Handles parsing the Ceil function.
+	 * 
+	 * @author lakpafinjusherpa
+	 * 
+	 */
 	@Override
 	public ExpressionTreeNode generateExpressionTree(Stack<Token> tokens) {
 		tokens.pop(); // Need to remove the floor token
