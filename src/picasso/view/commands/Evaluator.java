@@ -2,6 +2,7 @@ package picasso.view.commands;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.Scanner;
 
 import picasso.model.Pixmap;
 import picasso.parser.ExpressionTreeGenerator;
@@ -22,8 +23,9 @@ public class Evaluator implements Command<Pixmap> {
 	 * Evaluate an expression for each point in the image.
 	 */
 	public void execute(Pixmap target) {
+
 		// create the expression to evaluate just once
-		ExpressionTreeNode expr = createExpression();
+		ExpressionTreeNode expr = createExpression("ceil(x)");
 		// evaluate it for each pixel
 		Dimension size = target.getSize();
 		for (int imageY = 0; imageY < size.height; imageY++) {
@@ -48,7 +50,7 @@ public class Evaluator implements Command<Pixmap> {
 	 * 
 	 * A place holder for a more interesting way to build the expression.
 	 */
-	private ExpressionTreeNode createExpression() {
+	private ExpressionTreeNode createExpression(String s) {
 		// Note, when you're testing, you can use the ExpressionTreeGenerator to
 		// generate expression trees from strings, or you can create expression
 		// objects directly (as in the commented statement below).
@@ -57,7 +59,7 @@ public class Evaluator implements Command<Pixmap> {
 		//String test = "x + y";
 
 		ExpressionTreeGenerator expTreeGen = new ExpressionTreeGenerator();
-		return expTreeGen.makeExpression(test);
+		return expTreeGen.makeExpression(s);
 
 		// return new Multiply( new X(), new Y() );
 	}
