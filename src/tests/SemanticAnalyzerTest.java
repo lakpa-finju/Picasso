@@ -14,6 +14,8 @@ import picasso.parser.SemanticAnalyzer;
 import picasso.parser.language.ExpressionTreeNode;
 import picasso.parser.language.expressions.*;
 import picasso.parser.tokens.*;
+import picasso.parser.tokens.functions.AbsToken;
+import picasso.parser.tokens.functions.CeilToken;
 import picasso.parser.tokens.operations.*;
 
 /**
@@ -53,7 +55,7 @@ class SemanticAnalyzerTest {
 
 		Stack<Token> tokens = new Stack<>();
 		tokens.push(new IdentifierToken("x"));
-		tokens.push(new PlusToken());
+		tokens.push(new CeilToken());
 
 		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
 
@@ -70,4 +72,15 @@ class SemanticAnalyzerTest {
 		assertEquals(new Ceil(new X()), actual);
 	}
 
+	@Test
+	void testParseAbs() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new AbsToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Abs(new X()), actual);
+	}
 }
