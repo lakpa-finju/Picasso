@@ -13,10 +13,13 @@ import picasso.parser.ParseException;
 import picasso.parser.Tokenizer;
 import picasso.parser.language.ExpressionTreeNode;
 import picasso.parser.language.expressions.Abs;
+import picasso.parser.language.expressions.Addition;
 import picasso.parser.language.expressions.X;
+import picasso.parser.language.expressions.Y;
 import picasso.parser.tokens.*;
 import picasso.parser.tokens.chars.*;
 import picasso.parser.tokens.functions.*;
+import picasso.parser.tokens.operations.PlusToken;
 
 /**
  * Tests that the tokenizer tokens as expected. 
@@ -145,6 +148,16 @@ public class TokenizerTest {
 		assertEquals(new LeftParenToken(), tokens.get(1));
 		assertEquals(new IdentifierToken("x"), tokens.get(2));
 		assertEquals(new RightParenToken(), tokens.get(3));
+
+	}
+	
+	@Test
+	public void testTokenizeBasicFunctionExpressionAddition() {
+		String expression = "x + y";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new IdentifierToken("x"), tokens.get(0));
+		assertEquals(new PlusToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("y"), tokens.get(2));
 
 	}
 	// TODO: Test arithmetic (rather than function-based) expressions ...
