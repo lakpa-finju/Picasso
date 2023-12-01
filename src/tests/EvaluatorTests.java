@@ -15,9 +15,12 @@ import picasso.parser.language.expressions.*;
  * Tests of the evaluation of expression trees
  * 
  * @author Sara Sprenkle
+ * @author Liz Kent
  * 
  */
 public class EvaluatorTests {
+
+	private final static double ERROR_TOLERANCE = .0001;
 
 	/**
 	 * @throws java.lang.Exception
@@ -139,6 +142,26 @@ public class EvaluatorTests {
 					myTree.evaluate(testVal, testVal));
 		}
 		
+	}
+
+	@Test
+	public void testSineEvaluation() {
+		Sin myTree = new Sin(new X());
+
+		// some straightforward tests
+		assertEquals(new RGBColor(0, 0, 0), myTree.evaluate(0, -1));
+		//common sin value - pi/4
+		assertEquals(new RGBColor(0.706825181105366, 0.706825181105366, 0.706825181105366), myTree.evaluate(.785, -1));
+		assertEquals(new RGBColor(-0.9999996829318346, -0.9999996829318346, -0.9999996829318346), myTree.evaluate(-1.57, -1));
+
+		double[] tests = { -.7, -.00001, .000001, .5 };
+
+		for (double testVal : tests) {
+			double sinOfTestVal = Math.sin(testVal);
+			assertEquals(new RGBColor(sinOfTestVal, sinOfTestVal, sinOfTestVal), myTree.evaluate(testVal, -1));
+			assertEquals(new RGBColor(sinOfTestVal, sinOfTestVal, sinOfTestVal),
+					myTree.evaluate(testVal, testVal));
+		}
 	}
 
 }

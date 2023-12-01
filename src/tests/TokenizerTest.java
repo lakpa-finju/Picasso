@@ -4,12 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
+import java.util.Stack;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import picasso.parser.ParseException;
 import picasso.parser.Tokenizer;
+import picasso.parser.language.ExpressionTreeNode;
+import picasso.parser.language.expressions.Abs;
+import picasso.parser.language.expressions.X;
 import picasso.parser.tokens.*;
 import picasso.parser.tokens.chars.*;
 import picasso.parser.tokens.functions.*;
@@ -114,14 +118,15 @@ public class TokenizerTest {
 	}
 	
 	@Test
-	public void testTokenizeBasicFunctionExpressionAbs() {
-		String expression = "abs(x)";
-		tokens = tokenizer.parseTokens(expression);
-		assertEquals(new AbsToken(), tokens.get(0));
-		assertEquals(new LeftParenToken(), tokens.get(1));
-		assertEquals(new IdentifierToken("x"), tokens.get(2));
-		assertEquals(new RightParenToken(), tokens.get(3));
+	void testParseAbs() {
 
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new AbsToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Abs(new X()), actual);
 	}
   @Test
 	public void testTokenizeBasicFunctionExpressionClamp() {
@@ -131,6 +136,17 @@ public class TokenizerTest {
 		assertEquals(new LeftParenToken(), tokens.get(1));
 		assertEquals(new IdentifierToken("x"), tokens.get(2));
 		assertEquals(new RightParenToken(), tokens.get(3));
+	}
+
+	@Test
+	public void testTokenizeBasicFunctionExpressionSin() {
+		String expression = "sin(x)";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new SinToken(), tokens.get(0));
+		assertEquals(new LeftParenToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("x"), tokens.get(2));
+		assertEquals(new RightParenToken(), tokens.get(3));
+
 	}
 	// TODO: Test arithmetic (rather than function-based) expressions ...
 
