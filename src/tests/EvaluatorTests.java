@@ -93,6 +93,26 @@ public class EvaluatorTests {
 		}
 	}
 
-	// TODO: More tests of evaluation
+	@Test
+	public void testAbsEvaluation() { 
+		Abs myTree = new Abs(new X()); 
+		
+		// some straightforward tests
+		assertEquals(new RGBColor(.4, .4, .4), myTree.evaluate(.4, -1));
+		assertEquals(new RGBColor(0, 0, 0), myTree.evaluate(0, -1));
+		assertEquals(new RGBColor(.7, .7, .7), myTree.evaluate(-.7, -1));
+
+		// test the ints; remember that y's value doesn't matter
+
+		double[] tests = { -.7, -.00001, .000001, .5 };
+
+		for (double testVal : tests) {
+			double absOfTestVal = Math.abs(testVal);
+			assertEquals(new RGBColor(absOfTestVal, absOfTestVal, absOfTestVal), myTree.evaluate(testVal, -1));
+			assertEquals(new RGBColor(absOfTestVal, absOfTestVal, absOfTestVal),
+					myTree.evaluate(testVal, testVal));
+		}
+		
+	}
 
 }

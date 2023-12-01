@@ -83,7 +83,7 @@ public class TokenizerTest {
 	}
 
 	@Test
-	public void testTokenizeBasicFunctionExpression() {
+	public void testTokenizeBasicFunctionExpressionFloor() {
 		String expression = "floor(x)";
 		tokens = tokenizer.parseTokens(expression);
 		assertEquals(new FloorToken(), tokens.get(0));
@@ -112,7 +112,16 @@ public class TokenizerTest {
 		assertEquals(new IdentifierToken("x"), tokens.get(2));
 		assertEquals(new RightParenToken(), tokens.get(3));
 	}
-
+	
+	@Test
+	public void testTokenizeBasicFunctionExpressionAbs() {
+		String expression = "abs(x)";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new AbsToken(), tokens.get(0));
+		assertEquals(new LeftParenToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("x"), tokens.get(2));
+		assertEquals(new RightParenToken(), tokens.get(3));
+	}
 	// TODO: Test arithmetic (rather than function-based) expressions ...
 
 }
