@@ -99,6 +99,15 @@ public class ExpressionTreeGeneratorTests {
 		e = parser.makeExpression("ceil( x + y )");
 		assertEquals(new Ceil(new Addition(new X(), new Y())), e);
 	}
+	
+	@Test
+	public void clampFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("clamp( x )");
+		assertEquals(new Clamp(new X()), e);
+		
+		e = parser.makeExpression("clamp( x + y )");
+		assertEquals(new Clamp(new Addition(new X(), new Y())), e);
+	}
 
 	@Test
 	public void absFunctionTests() {
