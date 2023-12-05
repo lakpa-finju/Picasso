@@ -25,7 +25,8 @@ public class Frame extends JFrame {
 
 		// add commands to test here
 		ButtonPanel commands = new ButtonPanel(canvas);
-		commands.add("Open", new Reader());
+		commands.add("Open Image", new Reader());
+		commands.add("Open Expression", new ReaderEvaluator(commands));
 		ThreadedCommand<Pixmap> evalutorAction = new ThreadedCommand<Pixmap>(canvas, new Evaluator(commands));
 		commands.add("Evaluate", evalutorAction);
 		commands.add("Save", new Writer());
