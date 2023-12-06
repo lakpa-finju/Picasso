@@ -19,6 +19,7 @@ import picasso.parser.language.expressions.Y;
 import picasso.parser.tokens.*;
 import picasso.parser.tokens.chars.*;
 import picasso.parser.tokens.functions.*;
+import picasso.parser.tokens.operations.AssignmentToken;
 import picasso.parser.tokens.operations.PlusToken;
 
 /**
@@ -158,8 +159,20 @@ public class TokenizerTest {
 		assertEquals(new IdentifierToken("x"), tokens.get(0));
 		assertEquals(new PlusToken(), tokens.get(1));
 		assertEquals(new IdentifierToken("y"), tokens.get(2));
-
 	}
+	
+	@Test
+	public void testTokenizeAssignment() {
+		String expression = "a = x + y";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new IdentifierToken("a"), tokens.get(0));
+		assertEquals(new AssignmentToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("x"), tokens.get(2));
+		assertEquals(new PlusToken(), tokens.get(3));
+		assertEquals(new IdentifierToken("y"), tokens.get(4));
+	}
+	
+	
 	// TODO: Test arithmetic (rather than function-based) expressions ...
 
 }

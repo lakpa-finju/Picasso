@@ -61,25 +61,6 @@ public class ReaderEvaluator extends FileCommand<Pixmap> implements Command<Pixm
 						}
 					}
 				}
-//				StringBuilder sb = new StringBuilder();
-//				String st; 
-//		        while ((st = br.readLine()) != null)
-//		        	sb.append(st); 
-//				String input = sb.toString(); 
-//				
-//				System.out.println(input); 
-//				
-//				ExpressionTreeNode expr = createExpression(input);
-//				// evaluate it for each pixel
-//				Dimension size = target.getSize();
-//				for (int imageY = 0; imageY < size.height; imageY++) {
-//					double evalY = imageToDomainScale(imageY, size.height);
-//					for (int imageX = 0; imageX < size.width; imageX++) {
-//						double evalX = imageToDomainScale(imageX, size.width);
-//						Color pixelColor = expr.evaluate(evalX, evalY).toJavaColor();
-//						target.setColor(imageX, imageY, pixelColor);
-//					}
-//				}
 				br.close(); 
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block

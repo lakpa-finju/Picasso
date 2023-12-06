@@ -24,6 +24,7 @@ public class IdentifierAnalyzer implements SemanticAnalyzerInterface {
 		// We always have x and y defined.
 		idToExpression.put("x", new X());
 		idToExpression.put("y", new Y());
+//		idToExpression.put(identifier_name, new ExpressionTreeNode)	
 	}
 
 	@Override
@@ -39,5 +40,10 @@ public class IdentifierAnalyzer implements SemanticAnalyzerInterface {
 		// Is that an error? Or, could there a valid reason?
 		return null;
 	}
-
+	public static void variableToExpression(String idVariable, ExpressionTreeNode rightExpression) {
+		idToExpression.put(idVariable, rightExpression); 
+	}
 }
+	
+	
+
