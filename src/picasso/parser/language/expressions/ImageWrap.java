@@ -13,6 +13,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import picasso.model.Pixmap;
+import picasso.parser.ExpressionTreeGenerator;
 import picasso.parser.language.ExpressionTreeNode;
 
 /**
@@ -22,6 +23,8 @@ import picasso.parser.language.ExpressionTreeNode;
 public class ImageWrap extends ExpressionTreeNode{
 	public static final Dimension DEFAULT_SIZE = new Dimension(300, 300);
 	public static final Color DEFAULT_COLOR = Color.BLACK;
+	public static final double DOMAIN_MIN = -1;
+	public static final double DOMAIN_MAX = 1;
 	private String fileName;
 	ExpressionTreeNode leftETN;
 	ExpressionTreeNode rightETN;
@@ -88,6 +91,25 @@ public class ImageWrap extends ExpressionTreeNode{
 		}
 	}
 	
+	
+	/**
+	 * Convert from image space to domain space.
+	 */
+	protected double imageToDomainScale(int value, int bounds) {
+		double range = DOMAIN_MAX - DOMAIN_MIN;
+		return ((double) value / bounds) * range + DOMAIN_MIN;
+	}
+	
+	/**
+	 * Convert from image space to domain space.
+	 */
+	protected int domainScaleToImage(double value, int bounds) {
+		double range = DOMAIN_MAX - DOMAIN_MIN;
+		return (int)((value - DOMAIN_MIN)/range)*bounds;
+	}
+	
+	
+	
 	/**
 	 * Determine if the given (x,y) coordinate is within the bounds of this image.
 	 * 
@@ -100,6 +122,7 @@ public class ImageWrap extends ExpressionTreeNode{
 		return (0 <= x && x < mySize.width) && (0 <= y && y < mySize.height);
 	}
 	
+	
 
 	@Override
 	public RGBColor evaluate(double x, double y) {
@@ -107,7 +130,15 @@ public class ImageWrap extends ExpressionTreeNode{
 		RGBColor leftETN = this.leftETN.evaluate(x, y);
 		RGBColor rightETN = this.rightETN.evaluate(x, y);
 		
-		return null;
+		int imageX = domainScaleToImage(x, mySize.width);
+		int imageY = domainScaleToImage(y, mySize.height);
+		Color imageColor = getColor(imageX, imageX);
+		
+		int red = imageColor.getRed();
+		int blue = imageColor.getBlue();
+		int green = imageColor.getGreen();
+		
+		return new RGBColor((double)red,(double)blue,(double)green);
 	}
 
 }
