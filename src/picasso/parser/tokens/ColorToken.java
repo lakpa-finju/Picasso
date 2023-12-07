@@ -100,5 +100,10 @@ public class ColorToken extends Token {
 	public boolean isFunction() {
 		return false;
 	}
+	
+	@Override
+	public boolean isPushedToPostfix(){
+		return true;
+	}
 
 }
