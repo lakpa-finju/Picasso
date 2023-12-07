@@ -28,13 +28,13 @@ public class ImageWrapAnalyzer implements SemanticAnalyzerInterface {
 		System.out.println("Hi, this is the stack: "+ tokens);
 		tokens.pop(); //pop imageWrap
 		// TODO Auto-generated method stub
-		//ImageWrap("image.jpg",x+x,y)
-		//imageWrap y + x x "image.jpg" -- is the stack 
-		ExpressionTreeNode leftETN = SemanticAnalyzer.getInstance().generateExpressionTree(tokens);
-		ExpressionTreeNode rightETN = SemanticAnalyzer.getInstance().generateExpressionTree(tokens);
-		String fileName = tokens.pop().toString(); // file Name
+		//ImageWrap("image.jpg",x+x,y
+		//imageWrap y + x x image.jpg -- is the stack 
+		ExpressionTreeNode yCoordinateETN = SemanticAnalyzer.getInstance().generateExpressionTree(tokens);
+		ExpressionTreeNode xCoordinateETN = SemanticAnalyzer.getInstance().generateExpressionTree(tokens);
+		String fileName =tokens.pop().toString(); // file Name
 		System.out.print("this is fileName: "+fileName);
-		return new ImageWrap(fileName,leftETN,rightETN);
+		//return new ImageWrap(fileName,yCoordinateETN,xCoordinateETN);
 	}
 
 }
