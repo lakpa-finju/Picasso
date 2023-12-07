@@ -1,0 +1,20 @@
+package picasso.parser.tokens.operations;
+
+import picasso.parser.language.CharConstants;
+import picasso.parser.tokens.chars.CharToken;
+
+/**
+ * Represents the exponentiate token
+ * 
+ * @author Liz Kent
+ */
+public class ExponentiateToken extends CharToken implements OperationInterface {
+	public ExponentiateToken() {
+		super(CharConstants.CARET);
+	}
+
+	@Override
+	public int orderOfOperation() {
+		return 4;
+	}
+}
