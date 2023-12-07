@@ -112,7 +112,7 @@ public class TokenizerTest {
 	}
 	
 	@Test
-	public void testTokenizeBasicFunctionExpressionCeil() {
+	public void testTokenizeBasicFunctionExpressionCeilwithX() {
 		String expression = "ceil(x)";
 		tokens = tokenizer.parseTokens(expression);
 		assertEquals(new CeilToken(), tokens.get(0));
@@ -122,7 +122,17 @@ public class TokenizerTest {
 	}
 	
 	@Test
-	 public void testTokenizeBasicFunctionExpressionAbs() {
+	public void testTokenizeBasicFunctionExpressionCeilwithY() {
+		String expression = "ceil(y)";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new CeilToken(), tokens.get(0));
+		assertEquals(new LeftParenToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("y"), tokens.get(2));
+		assertEquals(new RightParenToken(), tokens.get(3));
+	}
+	
+	@Test
+	 public void testTokenizeBasicFunctionExpressionAbswithX() {
 	  String expression = "abs(x)";
 	  tokens = tokenizer.parseTokens(expression);
 	  assertEquals(new AbsToken(), tokens.get(0));
@@ -131,8 +141,18 @@ public class TokenizerTest {
 	  assertEquals(new RightParenToken(), tokens.get(3));
 	 }
 	
+	@Test
+	 public void testTokenizeBasicFunctionExpressionAbswithY() {
+	  String expression = "abs(y)";
+	  tokens = tokenizer.parseTokens(expression);
+	  assertEquals(new AbsToken(), tokens.get(0));
+	  assertEquals(new LeftParenToken(), tokens.get(1));
+	  assertEquals(new IdentifierToken("y"), tokens.get(2));
+	  assertEquals(new RightParenToken(), tokens.get(3));
+	 }
+	
   @Test
-	public void testTokenizeBasicFunctionExpressionClamp() {
+	public void testTokenizeBasicFunctionExpressionClampwithX() {
 		String expression = "clamp(x)";
 		tokens = tokenizer.parseTokens(expression);
 		assertEquals(new ClampToken(), tokens.get(0));
@@ -140,14 +160,34 @@ public class TokenizerTest {
 		assertEquals(new IdentifierToken("x"), tokens.get(2));
 		assertEquals(new RightParenToken(), tokens.get(3));
 	}
-
+  
+  @Test
+	public void testTokenizeBasicFunctionExpressionClampwithY() {
+		String expression = "clamp(y)";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new ClampToken(), tokens.get(0));
+		assertEquals(new LeftParenToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("y"), tokens.get(2));
+		assertEquals(new RightParenToken(), tokens.get(3));
+	}
 	@Test
-	public void testTokenizeBasicFunctionExpressionSin() {
+	public void testTokenizeBasicFunctionExpressionSinwithX() {
 		String expression = "sin(x)";
 		tokens = tokenizer.parseTokens(expression);
 		assertEquals(new SinToken(), tokens.get(0));
 		assertEquals(new LeftParenToken(), tokens.get(1));
 		assertEquals(new IdentifierToken("x"), tokens.get(2));
+		assertEquals(new RightParenToken(), tokens.get(3));
+
+	}
+	
+	@Test
+	public void testTokenizeBasicFunctionExpressionSinwithY() {
+		String expression = "sin(y)";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new SinToken(), tokens.get(0));
+		assertEquals(new LeftParenToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("y"), tokens.get(2));
 		assertEquals(new RightParenToken(), tokens.get(3));
 
 	}

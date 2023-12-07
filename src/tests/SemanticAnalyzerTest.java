@@ -63,7 +63,19 @@ class SemanticAnalyzerTest {
 
 		assertEquals(new Ceil(new X()), actual);
 	}
+	@Test
+	void testParseCeilwithY() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new CeilToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Ceil(new Y()), actual);
+	}
 	
+	@Test
 	void testParseClamp() {
 		Stack<Token> tokens = new Stack<>();
 		tokens.push(new IdentifierToken("x"));
@@ -72,6 +84,17 @@ class SemanticAnalyzerTest {
 		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
 		
 		assertEquals(new Clamp(new X()), actual);
+	}
+	
+	@Test
+	void testParseClampwithY() {
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new ClampToken());
+		
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+		
+		assertEquals(new Clamp(new Y()), actual);
 	}
 
 	@Test
@@ -85,6 +108,18 @@ class SemanticAnalyzerTest {
 
 		assertEquals(new Abs(new X()), actual);
 	}
+	
+	@Test
+	void testParseAbswithY() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new AbsToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Abs(new Y()), actual);
+	}
 
 	@Test
 	void testParseSin() {
@@ -96,6 +131,18 @@ class SemanticAnalyzerTest {
 		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
 
 		assertEquals(new Sin(new X()), actual);
+	}
+	
+	@Test
+	void testParseSinwithY() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new SinToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Sin(new Y()), actual);
 	}
 	
 	@Test
