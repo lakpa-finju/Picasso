@@ -62,4 +62,9 @@ public class NumberToken extends Token {
 		return false;
 	}
 
+	@Override
+	public boolean isPushedToPostfix(){
+		return true;
+	}
+
 }

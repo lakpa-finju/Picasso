@@ -11,4 +11,9 @@ public class PlusToken extends CharToken implements OperationInterface {
 	public PlusToken() {
 		super(CharConstants.PLUS);
 	}
+
+	@Override
+	public int orderOfOperation() {
+		return 2;
+	}
 }
