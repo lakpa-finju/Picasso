@@ -16,6 +16,7 @@ import picasso.parser.language.expressions.*;
 import picasso.parser.tokens.*;
 import picasso.parser.tokens.functions.AbsToken;
 import picasso.parser.tokens.functions.CeilToken;
+import picasso.parser.tokens.functions.ClampToken;
 import picasso.parser.tokens.functions.SinToken;
 import picasso.parser.tokens.operations.*;
 
@@ -62,15 +63,38 @@ class SemanticAnalyzerTest {
 
 		assertEquals(new Ceil(new X()), actual);
 	}
+	@Test
+	void testParseCeilwithY() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new CeilToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Ceil(new Y()), actual);
+	}
 	
+	@Test
 	void testParseClamp() {
 		Stack<Token> tokens = new Stack<>();
 		tokens.push(new IdentifierToken("x"));
-		tokens.push(new PlusToken());
+		tokens.push(new ClampToken());
 		
 		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
 		
-		assertEquals(new Ceil(new X()), actual);
+		assertEquals(new Clamp(new X()), actual);
+	}
+	
+	@Test
+	void testParseClampwithY() {
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new ClampToken());
+		
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+		
+		assertEquals(new Clamp(new Y()), actual);
 	}
 
 	@Test
@@ -84,6 +108,18 @@ class SemanticAnalyzerTest {
 
 		assertEquals(new Abs(new X()), actual);
 	}
+	
+	@Test
+	void testParseAbswithY() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new AbsToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Abs(new Y()), actual);
+	}
 
 	@Test
 	void testParseSin() {
@@ -96,4 +132,32 @@ class SemanticAnalyzerTest {
 
 		assertEquals(new Sin(new X()), actual);
 	}
+	
+	@Test
+	void testParseSinwithY() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new SinToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Sin(new Y()), actual);
+	}
+	
+	@Test
+	void testParseAssignment() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("a"));
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new PlusToken());
+		tokens.push(new AssignmentToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Assignment(new Variable("a"), new Addition(new X(), new Y())), actual);
+	}
+	
 }
