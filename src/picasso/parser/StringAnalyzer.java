@@ -34,7 +34,7 @@ public class StringAnalyzer implements SemanticAnalyzerInterface {
 		StringToken token = (StringToken) tokens.pop();
 
 		// Check that the number is a valid number
-		java.lang.String value = token.value();
+		String value = token.value();
 
 		// Would violate the preconditions of the constant
 		if (value == null) {

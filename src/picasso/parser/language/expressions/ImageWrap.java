@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import picasso.parser.language.ExpressionTreeNode;
+import picasso.parser.tokens.StringToken;
 
 /**
  * Represents ImageWrap function in the Picasso language
@@ -36,8 +37,8 @@ public class ImageWrap extends ExpressionTreeNode{
 	 * @param leftETN left expression tree node
 	 * @param rightETN right expression tree node
 	 */
-	public ImageWrap(Image fileName, ExpressionTreeNode leftETN, ExpressionTreeNode rightETN) {
-		this.image = fileName;
+	public ImageWrap(StringToken fileName, ExpressionTreeNode leftETN, ExpressionTreeNode rightETN) {
+		this.image = new Image(fileName.value());
 		this.xCoordinateETN = leftETN;
 		this.yCoordinateETN = rightETN;
 		
@@ -53,9 +54,9 @@ public class ImageWrap extends ExpressionTreeNode{
 		//need to wrap here
 		double redX = xCoordinateColor.getRed();
 		double redY = yCoordinateColor.getRed();
-		int imageX = image.domainScaleToImage(redX, 255);
+		int imageX = image.domainScaleToImage(redX);
 
-		int imageY = image.domainScaleToImage(redY, 255);
+		int imageY = image.domainScaleToImage(redY);
 		Color imageColor = image.getColor(imageX, imageY);
 		
 		

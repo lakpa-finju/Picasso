@@ -24,6 +24,8 @@ public class Image extends ExpressionTreeNode {
 	public static final Color DEFAULT_COLOR = Color.BLACK;
 	public static final double DOMAIN_MIN = -1;
 	public static final double DOMAIN_MAX = 1;
+	public static final int BOUNDS = 2;
+
 	ExpressionTreeNode xCoordinateETN;
 	ExpressionTreeNode yCoordinateETN;
 	
@@ -39,7 +41,6 @@ public class Image extends ExpressionTreeNode {
 		}
 		value = val;
 		read(value);
-		// TODO Auto-generated constructor stub
 	}
 
 	
@@ -92,9 +93,9 @@ public class Image extends ExpressionTreeNode {
 	/**
 	 * Convert from image space to domain space.
 	 */
-	protected int domainScaleToImage(double value, int bounds) {
-		double range = DOMAIN_MAX - DOMAIN_MIN;
-		return (int) ((value - DOMAIN_MIN) / range) * bounds;
+	protected int domainScaleToImage(double value) {
+		double range = 255-0;
+		return (int) ((value - (-1)) * range) / BOUNDS;
 	}
 
 	/**
@@ -119,8 +120,8 @@ public class Image extends ExpressionTreeNode {
 		// return new RGBColor(x, x);
 		// ask professor about this
 
-		int imageX = domainScaleToImage(x, mySize.width);
-		int imageY = domainScaleToImage(y, mySize.height);
+		int imageX = domainScaleToImage(x);
+		int imageY = domainScaleToImage(y);
 		Color imageColor = getColor(imageX, imageY);
 
 		return new RGBColor(imageColor);

@@ -63,7 +63,6 @@ public class ExpressionTreeGenerator {
 
 		Tokenizer tokenizer = new Tokenizer();
 		List<Token> tokens = tokenizer.parseTokens(infix);
-
 		return infixToPostfix(tokens);
 	}
 
@@ -85,7 +84,6 @@ public class ExpressionTreeGenerator {
 		Stack<Token> postfixResult = new Stack<Token>();
 
 		Iterator<Token> iter = tokens.iterator();
-
 		// TO DISCUSS: Is this the correct way to design this code?
 		// What is the code smell? What is the alternative?
 
@@ -157,7 +155,31 @@ public class ExpressionTreeGenerator {
 					postfixResult.push(operators.pop());
 				}
 
-			} else {
+			} else if (token instanceof QuoteToken) {
+				operators.push(token);
+			} else if (token instanceof QuoteToken) {
+				// Until the token at the top of the stack is a left
+				// parenthesis, pop operators off the stack onto the output
+				// queue.
+				while (operators.size() > 0 && !(operators.peek() instanceof QuoteToken)) {
+					postfixResult.push(operators.pop());
+				}
+
+				// Pop the left parenthesis from the stack, but not onto the
+				// output queue.
+				if (operators.isEmpty()) {
+					throw new ParseException("Missing \"");
+				}
+				operators.pop();
+
+				// If the token at the top of the stack is a function token, pop
+				// it onto the output queue.
+				if (operators.size() > 0 && operators.peek() instanceof FunctionToken) {
+					postfixResult.push(operators.pop());
+				}
+			}
+			
+			else {
 				System.out.println("ERROR: No match: " + token);
 			}
 			// System.out.println("Postfix: " + postfixResult);
