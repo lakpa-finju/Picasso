@@ -234,6 +234,41 @@ public class EvaluatorTests {
 ////				}
 	}
 	
+	@Test
+	public void testDivisionEvaluation() {
+		Division newTree = new Division(new X(),new Y());
+		// some straightforward tests
+		//checks divide by 0
+				assertEquals(new RGBColor(0, 0, 0), newTree.evaluate(0, 1));
+				assertEquals(new RGBColor(-1, -1, -1), newTree.evaluate(1, -1));
+				assertEquals(new RGBColor(0, 0, 0), newTree.evaluate(0,0));
+
+				double[] tests = { -.7, -.00001, .000001, .5 };
+
+				for (double testVal : tests) {
+					assertEquals(new RGBColor(testVal /2.0, testVal /2.0, testVal /2.0), newTree.evaluate(testVal, 2.0));
+					assertEquals(new RGBColor(testVal / 1.5, testVal / 1.5, testVal / 1.5),
+							newTree.evaluate(testVal, 1.5));
+				}
+	}
+
+	@Test
+	public void testModEvaluation() {
+		Modulo newTree = new Modulo(new X(),new Y());
+		// some straightforward tests
+		//checks mod by 0
+				assertEquals(new RGBColor(0, 0, 0), newTree.evaluate(0, 1));
+				assertEquals(new RGBColor(0, 0, 0), newTree.evaluate(1, -1));
+				assertEquals(new RGBColor(0, 0, 0), newTree.evaluate(0,0));
+
+				double[] tests = { -.7, -.00001, .000001, .5 };
+
+				for (double testVal : tests) {
+					assertEquals(new RGBColor(testVal % 2.0, testVal % 2.0, testVal % 2.0), newTree.evaluate(testVal, 2.0));
+					assertEquals(new RGBColor(testVal % 1.5, testVal % 1.5, testVal % 1.5),
+							newTree.evaluate(testVal, 1.5));
+				}
+	}
 	
 
 }

@@ -2,45 +2,28 @@ package picasso.parser.language.expressions;
 
 import picasso.parser.language.ExpressionTreeNode;
 
-/**
- * This class represents the division operation.
- * 
- * @author Liz Kent
- */
-public class Division extends ExpressionTreeNode {
+public class Subtraction extends ExpressionTreeNode {
 	ExpressionTreeNode left;
 	ExpressionTreeNode right;
 
-	public Division(ExpressionTreeNode left, ExpressionTreeNode right) {
+	public Subtraction(ExpressionTreeNode left, ExpressionTreeNode right) {
 		this.left = left;
 		this.right = right;
 	}
 
 	/**
-	 * Evaluates this expression at the given x,y point by producing a color
-     * based on the function's parameter.
-	 * If divide by 0 is attempted, 0.0 is returned
+	 * Evaluates this expression at the given x,y point by evaluating the subtraction
+     * of the parameter.
 	 * 
-	 * @return the color from evaluating the division of the expression's parameter
-	 * @return 0.0 if divide by 0 is attempted
+	 * @return the color from evaluating the subtraction of the expression's parameter
 	 */
 	@Override
 	public RGBColor evaluate(double x, double y) {
 		RGBColor leftResult = left.evaluate(x, y);
 		RGBColor rightResult = right.evaluate(x, y);
-		double red = 0.0;
-		double blue = 0.0;
-		double green = 0.0;
-
-		if(rightResult.getRed() != 0.0){
-			red = leftResult.getRed() / rightResult.getRed();
-		}
-		if (rightResult.getGreen() != 0.0) {
-			green = leftResult.getGreen() / rightResult.getGreen();
-		}
-		if (rightResult.getBlue() != 0.0){
-			blue = leftResult.getBlue() / rightResult.getBlue();
-		}
+		double red = leftResult.getRed() - rightResult.getRed();
+		double green = leftResult.getGreen() - rightResult.getGreen();
+		double blue = leftResult.getBlue() - rightResult.getBlue();
 
 		return new RGBColor(red, green, blue);
 	}
@@ -51,7 +34,7 @@ public class Division extends ExpressionTreeNode {
 			return true;
 		}
 
-		if (!(o instanceof Division)) {
+		if (!(o instanceof Subtraction)) {
 			return false;
 		}
 
@@ -60,7 +43,7 @@ public class Division extends ExpressionTreeNode {
 			return false;
 		}
 
-		Division other = (Division) o;
+		Subtraction other = (Subtraction) o;
 		if (!other.left.equals(this.left)) {
 			return false;
 		}
@@ -76,10 +59,9 @@ public class Division extends ExpressionTreeNode {
     public String toString(){
         StringBuilder str = new StringBuilder(""); 
         str.append(left); 
-        str.append(" / "); 
+        str.append(" - "); 
         str.append(right);
         return str.toString(); 
     }
 
 }
-
