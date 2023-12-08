@@ -19,16 +19,28 @@ public class Division extends ExpressionTreeNode {
 	/**
 	 * Evaluates this expression at the given x,y point by producing a color
      * based on the function's parameter.
+	 * If divide by 0 is attempted, 0.0 is returned
 	 * 
 	 * @return the color from evaluating the division of the expression's parameter
+	 * @return 0.0 if divide by 0 is attempted
 	 */
 	@Override
 	public RGBColor evaluate(double x, double y) {
 		RGBColor leftResult = left.evaluate(x, y);
 		RGBColor rightResult = right.evaluate(x, y);
-		double red = leftResult.getRed() / rightResult.getRed();
-		double green = leftResult.getGreen() / rightResult.getGreen();
-		double blue = leftResult.getBlue() / rightResult.getBlue();
+		double red = 0.0;
+		double blue = 0.0;
+		double green = 0.0;
+
+		if(rightResult.getRed() != 0.0){
+			red = leftResult.getRed() / rightResult.getRed();
+		}
+		if (rightResult.getGreen() != 0.0) {
+			green = leftResult.getGreen() / rightResult.getGreen();
+		}
+		if (rightResult.getBlue() != 0.0){
+			blue = leftResult.getBlue() / rightResult.getBlue();
+		}
 
 		return new RGBColor(red, green, blue);
 	}

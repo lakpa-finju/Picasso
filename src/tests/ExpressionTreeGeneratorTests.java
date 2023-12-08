@@ -128,4 +128,13 @@ public class ExpressionTreeGeneratorTests {
 		assertEquals(new Sin(new Addition(new X(), new Y())), e);
 
 	}
+
+	/**
+	 * For now only tests division and addition.
+	 */
+	@Test
+	public void orderOfOperationTest() {
+		ExpressionTreeNode e = parser.makeExpression("x + y / x");
+		assertEquals(new Addition (new X(), new Division(new Y(), new X())), e);
+	}
 }

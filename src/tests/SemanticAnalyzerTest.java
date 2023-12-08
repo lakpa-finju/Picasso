@@ -159,5 +159,34 @@ class SemanticAnalyzerTest {
 
 		assertEquals(new Assignment(new Variable("a"), new Addition(new X(), new Y())), actual);
 	}
+
+	@Test
+	void testParseDivision() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new DivideToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Division(new X(), new Y()), actual);
+	}
 	
+	/**
+	 * Checks to make sure division generates 
+	 * expression with correct sides.
+	 */
+	@Test
+	void testParseDivisionReverse() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new DivideToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertNotEquals(new Division(new X(), new Y()), actual);
+	}
 }

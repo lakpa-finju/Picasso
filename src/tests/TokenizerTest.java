@@ -20,6 +20,7 @@ import picasso.parser.tokens.*;
 import picasso.parser.tokens.chars.*;
 import picasso.parser.tokens.functions.*;
 import picasso.parser.tokens.operations.AssignmentToken;
+import picasso.parser.tokens.operations.DivideToken;
 import picasso.parser.tokens.operations.PlusToken;
 
 /**
@@ -212,6 +213,25 @@ public class TokenizerTest {
 		assertEquals(new IdentifierToken("y"), tokens.get(4));
 	}
 	
+	@Test
+	public void testTokenizeBasicFunctionExpressionDivision() {
+		String expression = "x / y";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new IdentifierToken("x"), tokens.get(0));
+		assertEquals(new DivideToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("y"), tokens.get(2));
+	}
+
+	@Test
+	public void testTokenizeFunctionExpressionAddDivide() {
+		String expression = "x / y + x";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new IdentifierToken("x"), tokens.get(0));
+		assertEquals(new DivideToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("y"), tokens.get(2));
+		assertEquals(new PlusToken(), tokens.get(3));
+		assertEquals(new IdentifierToken("x"), tokens.get(4));
+	}
 	
 	// TODO: Test arithmetic (rather than function-based) expressions ...
 
