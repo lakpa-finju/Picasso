@@ -3,22 +3,22 @@ package picasso.parser.language.expressions;
 import picasso.parser.language.ExpressionTreeNode;
 
 /**
- * This class represents the cosine function for Picasso evaluations.
+ * This class represents the tangent function for Picasso evaluations.
  * 
  * @author Liz Kent
  */
-public class Cosine extends UnaryFunction {
+public class Tan extends UnaryFunction {
 	
 	/**
-	 * Constructs the cosine function with the given expression as a parameter
+	 * Constructs the sine function with the given expression as a parameter
 	 * @param param - the given expression
 	 */
-	public Cosine(ExpressionTreeNode param) {
+	public Tan(ExpressionTreeNode param) {
 		super(param);
 	}
 	
 	/**
-	 * Evaluates the expression at the given (x,y) by taking the cosine of
+	 * Evaluates the expression at the given (x,y) by taking the tangent of
      * the parameter.
      * 
 	 * @param x - the x coordinate
@@ -28,9 +28,9 @@ public class Cosine extends UnaryFunction {
 	public RGBColor evaluate(double x, double y) {
 		RGBColor result = param.evaluate(x, y);
 
-		double red = Math.cos(result.getRed());
-		double green = Math.cos(result.getGreen());
-		double blue = Math.cos(result.getBlue());
+		double red = Math.tan(result.getRed());
+		double green = Math.tan(result.getGreen());
+		double blue = Math.tan(result.getBlue());
 
 		return new RGBColor(red, green, blue);
 	}
