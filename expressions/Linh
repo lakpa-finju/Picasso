@@ -1,0 +1,2 @@
+// Linh
+clamp(x+y) + sin(floor(x+y))
