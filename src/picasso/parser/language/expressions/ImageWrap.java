@@ -2,14 +2,7 @@
  * 
  */
 package picasso.parser.language.expressions;
-
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import picasso.parser.language.ExpressionTreeNode;
 import picasso.parser.tokens.StringToken;
 
@@ -27,10 +20,6 @@ public class ImageWrap extends ExpressionTreeNode{
 	ExpressionTreeNode xCoordinateETN;
 	ExpressionTreeNode yCoordinateETN;
 	
-	private BufferedImage myImage;
-	private Dimension mySize;
-	
-
 	/**
 	 * Creates the ImageWrap Expression that takes as a parameter the imageName, given expression tree node for the 
 	 * both left Expression Tree node and right Expression tree node. 
@@ -53,15 +42,12 @@ public class ImageWrap extends ExpressionTreeNode{
 		RGBColor xCoordinateColor = xCoordinateETN.evaluate(x, y);
 		RGBColor yCoordinateColor = yCoordinateETN.evaluate(x, y);
 		//need to wrap here
+		
 		double redX = wrap(xCoordinateColor.getRed(), -1,1);
 		double redY = wrap(yCoordinateColor.getRed()
 				,-1,1);
-		int imageX = image.domainScaleToImageX(redX);
-		int imageY = image.domainScaleToImageY(redY);
-		Color imageColor = image.getColor(imageX, imageY);
-		
-		
-		return new RGBColor(imageColor);
+
+		return image.evaluate(redX, redY);
 	}
 
 	/**
@@ -77,7 +63,13 @@ public class ImageWrap extends ExpressionTreeNode{
 	 * @param upperBound upper bound of range, inclusive
 	 */
 	public double wrap(double n, double lowerBound, double upperBound){
-		return (n - lowerBound) % (upperBound - lowerBound) + lowerBound;
+        if ((n- lowerBound) < 0){
+            double num = Math.abs((n - lowerBound)) % (upperBound - lowerBound) + lowerBound;
+            return num * -1;
+        }
+        else{ 
+		    return (n - lowerBound) % (upperBound - lowerBound) + lowerBound;
+        }
 	}
 
 	/**

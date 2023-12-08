@@ -10,8 +10,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-
-import picasso.parser.ParseException;
 import picasso.parser.language.ExpressionTreeNode;
 
 /**
@@ -21,7 +19,7 @@ public class Image extends ExpressionTreeNode {
 
 	private String value;
 	public static final Dimension DEFAULT_SIZE = new Dimension(300, 300);
-	public static final Color DEFAULT_COLOR = Color.BLACK;
+	public static final Color DEFAULT_COLOR = Color.PINK;
 	public static final double DOMAIN_MIN = -1;
 	public static final double DOMAIN_MAX = 1;
 	public static final int BOUNDS = 2;
@@ -72,6 +70,7 @@ public class Image extends ExpressionTreeNode {
 		if (isInBounds(x, y))
 			return new Color(myImage.getRGB(x, y));
 		else
+			//System.out.println(x + " " + y);
 			return DEFAULT_COLOR;
 	}
 	
@@ -94,14 +93,14 @@ public class Image extends ExpressionTreeNode {
 	 * Convert from image space to domain space.
 	 */
 	public int domainScaleToImageX(double value) {
-		double range = mySize.getWidth();
+		double range = mySize.getWidth() -1;
 		return (int) ((value - (-1)) * range) / BOUNDS;
 	}
 	/**
 	 * Convert from image space to domain space.
 	 */
 	public int domainScaleToImageY(double value) {
-		double range = mySize.getHeight();
+		double range = mySize.getHeight() -1 ;
 		return (int) ((value - (-1)) * range) / BOUNDS;
 	}
 
