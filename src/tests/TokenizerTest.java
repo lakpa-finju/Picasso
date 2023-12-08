@@ -163,13 +163,16 @@ public class TokenizerTest {
 	
 	@Test
 	public void testTokenizeBasicFunctionExpressionImageWrap() {
-		String expression = "imageWrap(\"foo.jpg\",new X(), new Y())";
+		String expression = "imageWrap(\"foo.jpg\", x, y)";
 		tokens = tokenizer.parseTokens(expression);
 		assertEquals(new ImageWrapToken(), tokens.get(0));
 		assertEquals(new LeftParenToken(), tokens.get(1));
 		assertEquals(new StringToken("foo.jpg"), tokens.get(2));
-		assertEquals(new IdentifierToken("x"), tokens.get(3));
-		assertEquals(new IdentifierToken("y"), tokens.get(4));
+		assertEquals(new CommaToken(), tokens.get(3));
+		assertEquals(new IdentifierToken("x"), tokens.get(4));
+		assertEquals(new CommaToken(), tokens.get(5));
+		assertEquals(new IdentifierToken("y"), tokens.get(6));
+		assertEquals(new RightParenToken(), tokens.get(7));
 
 	}
 	// TODO: Test arithmetic (rather than function-based) expressions ...

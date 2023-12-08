@@ -29,7 +29,7 @@ public class StringToken extends Token{
 			return false;
 		}
 		StringToken other = (StringToken) o;
-		return myValue == other.myValue;
+		return myValue.equals(other.value());
 	}
 
 	@Override

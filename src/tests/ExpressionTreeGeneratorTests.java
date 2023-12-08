@@ -132,11 +132,11 @@ public class ExpressionTreeGeneratorTests {
 	
 	@Test
 	public void imageWrapFunctionTests() {
-		ExpressionTreeNode e = parser.makeExpression("imageWrap(\"foo.jpg\", x, y");
+		ExpressionTreeNode e = parser.makeExpression("imageWrap(\"foo.jpg\", x, y)");
 		StringToken stringTok = new StringToken("foo.jpg");
 		assertEquals(new ImageWrap(stringTok, new X(), new Y()), e);
 		
-		e = parser.makeExpression("imageWrap(\"vortex.jpg\", x, y");
+		e = parser.makeExpression("imageWrap(\"vortex.jpg\", x, y)");
 		StringToken stringToken = new StringToken("vortex.jpg");
 		assertEquals(new ImageWrap(stringToken, new X(),  new Y()), e);
 				
