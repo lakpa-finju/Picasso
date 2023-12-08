@@ -64,7 +64,6 @@ public class ExpressionTreeGenerator {
 
 		Tokenizer tokenizer = new Tokenizer();
 		List<Token> tokens = tokenizer.parseTokens(infix);
-
 		return infixToPostfix(tokens);
 	}
 
@@ -86,7 +85,6 @@ public class ExpressionTreeGenerator {
 		Stack<Token> postfixResult = new Stack<Token>();
 
 		Iterator<Token> iter = tokens.iterator();
-
 		// TO DISCUSS: Is this the correct way to design this code?
 		// What is the code smell? What is the alternative?
 		//The code smell here is using instanceof - a better way to design uses a method to
@@ -98,6 +96,9 @@ public class ExpressionTreeGenerator {
 				postfixResult.push(token);
 			}  else if (token instanceof FunctionToken) {
 				operators.push(token);
+			} else if (token instanceof StringToken) {
+				postfixResult.push(token);
+
 			} else if (token instanceof OperationInterface) {
 
 				/*
@@ -157,7 +158,9 @@ public class ExpressionTreeGenerator {
 					postfixResult.push(operators.pop());
 				}
 
-			} else {
+			}
+
+			else {
 				System.out.println("ERROR: No match: " + token);
 			}
 			// System.out.println("Postfix: " + postfixResult);
