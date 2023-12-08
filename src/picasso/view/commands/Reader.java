@@ -12,7 +12,7 @@ import picasso.util.FileCommand;
  */
 public class Reader extends FileCommand<Pixmap> {
 	
-	protected static String[] extensions = {".png", ".jpg", ".gif"};
+	//protected static String[] extensions = {".png", ".jpg", ".gif"};
 	
 	/**
 	 * Creates a Reader object, which prompts users for image files to open
@@ -23,6 +23,8 @@ public class Reader extends FileCommand<Pixmap> {
 
 	/**
 	 * Displays the image file on the given target.
+	 * If the user selects an invalid image, an error
+	 * message will be displayed instead.
 	 */
 	public void execute(Pixmap target) {
 		//Called when you press open image or open expression
