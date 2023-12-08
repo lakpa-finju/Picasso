@@ -53,5 +53,9 @@ public class StringToken extends Token{
 		return super.toString() + ": " + myValue;
 	}
 
+	@Override
+	public boolean isPushedToPostfix(){
+		return true;
+	}
 
 }
