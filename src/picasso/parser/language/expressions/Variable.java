@@ -27,4 +27,27 @@ public class Variable extends ExpressionTreeNode {
 		return name;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+
+		if (!(o instanceof Variable)) {
+			return false;
+		}
+
+		// Make sure the objects are the same type
+		if (o.getClass() != this.getClass()) {
+			return false;
+		}
+
+		Variable other = (Variable) o;
+		if (!other.name.equals(this.name)) {
+			return false;
+		}
+
+		return true;
+
+	}
 }

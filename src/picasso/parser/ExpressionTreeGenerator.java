@@ -16,6 +16,7 @@ import picasso.parser.tokens.operations.*;
  * @author former student solution
  * @author Robert C. Duvall (added comments, exceptions)
  * @author Sara Sprenkle modified for Picasso
+ * @author Liz Kent
  */
 public class ExpressionTreeGenerator {
 
@@ -86,16 +87,14 @@ public class ExpressionTreeGenerator {
 		Iterator<Token> iter = tokens.iterator();
 		// TO DISCUSS: Is this the correct way to design this code?
 		// What is the code smell? What is the alternative?
+		//The code smell here is using instanceof - a better way to design uses a method to
+		//simplify things
 
 		while (iter.hasNext()) {
 			Token token = iter.next();
-			if (token instanceof NumberToken) {
+			if (token.isPushedToPostfix()) {
 				postfixResult.push(token);
-			} else if (token instanceof ColorToken) {
-				postfixResult.push(token);
-			} else if (token instanceof IdentifierToken) {
-				postfixResult.push(token);
-			} else if (token instanceof FunctionToken) {
+			}  else if (token instanceof FunctionToken) {
 				operators.push(token);
 			} else if (token instanceof StringToken) {
 				postfixResult.push(token);
@@ -115,7 +114,8 @@ public class ExpressionTreeGenerator {
 				 */
 				while (!operators.isEmpty() && !(operators.peek() instanceof LeftParenToken)
 						&& orderOfOperation(token) <= orderOfOperation(operators.peek())) {
-					postfixResult.push(operators.pop());
+					//
+					postfixResult.push(operators.pop()); 
 				}
 
 				operators.push(token);
@@ -196,9 +196,17 @@ public class ExpressionTreeGenerator {
 		// TODO: DISCUSS: Is it better to have a method in the OperatorToken
 		// class that gives the order of operation?
 
-		if (token instanceof PlusToken)
-			return ADD_OR_SUBTRACT;
-		else
+		if (token instanceof OperationInterface) {
+			OperationInterface tokenO = (OperationInterface) token;
+			return tokenO.orderOfOperation();
+		}
+		else {
 			return CONSTANT;
+		}
+
+		// if (token instanceof PlusToken)
+		// 	return ADD_OR_SUBTRACT;
+		// else
+		// 	return CONSTANT;
 	}
 }

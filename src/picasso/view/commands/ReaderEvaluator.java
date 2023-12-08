@@ -6,11 +6,13 @@ import java.util.Scanner;
 
 import picasso.model.Pixmap;
 import picasso.parser.ExpressionTreeGenerator;
-import picasso.parser.ParseException;
 import picasso.parser.language.ExpressionTreeNode;
 import picasso.util.Command;
 import picasso.view.ButtonPanel;
+import javax.swing.JFileChooser;
+import picasso.util.FileCommand;
 
+import java.io.*;
 /**
  * Evaluate an expression for each pixel in a image.
  * 
@@ -18,7 +20,7 @@ import picasso.view.ButtonPanel;
  * @author Sara Sprenkle
  */
 
-public class Evaluator implements Command<Pixmap> {
+public class ReaderEvaluator extends FileCommand<Pixmap> implements Command<Pixmap> {
 	public static final double DOMAIN_MIN = -1;
 	public static final double DOMAIN_MAX = 1;
 	
@@ -28,7 +30,8 @@ public class Evaluator implements Command<Pixmap> {
 	 * Constructor
 	 * @param mybuttonpanel
 	 */
-	public Evaluator(ButtonPanel mybuttonpanel) {
+	public ReaderEvaluator(ButtonPanel mybuttonpanel) {
+		super(JFileChooser.OPEN_DIALOG);
 		buttonpanel = mybuttonpanel; 
 	}
 	/**
@@ -36,30 +39,37 @@ public class Evaluator implements Command<Pixmap> {
 	 */
 	public void execute(Pixmap target) {
 
-		// create the expression to evaluate just once
-		String input = buttonpanel.getInput(); 
-		ExpressionTreeNode expr = null;
-		
-		//Try to catch a parse exception and display the error message if so
-		try {
-			expr = createExpression(input);
-		}
-		catch(ParseException e){
-			String errorFile = System.getProperty("user.dir") +
-					"\\images\\Error_Input.png";
-			target.read(errorFile);
-			return;//stop execution, wait for next input to run again
-		}
-		
-		// evaluate it for each pixel
-		Dimension size = target.getSize();
-		for (int imageY = 0; imageY < size.height; imageY++) {
-			double evalY = imageToDomainScale(imageY, size.height);
-			for (int imageX = 0; imageX < size.width; imageX++) {
-				double evalX = imageToDomainScale(imageX, size.width);
-				Color pixelColor = expr.evaluate(evalX, evalY).toJavaColor();
-				target.setColor(imageX, imageY, pixelColor);
+		// take the input from the file 
+		String fileName = getFileName(); 
+		if (fileName != null) {
+			File file = new File(fileName); 
+			BufferedReader br;
+			try {
+				br = new BufferedReader(new FileReader(file));
+				String st; 
+				while ((st = br.readLine()) != null) {
+					ExpressionTreeNode expr = createExpression(st);
+					if (expr != null) {
+						Dimension size = target.getSize();
+						for (int imageY = 0; imageY < size.height; imageY++) {
+							double evalY = imageToDomainScale(imageY, size.height);
+							for (int imageX = 0; imageX < size.width; imageX++) {
+								double evalX = imageToDomainScale(imageX, size.width);
+								Color pixelColor = expr.evaluate(evalX, evalY).toJavaColor();
+								target.setColor(imageX, imageY, pixelColor);
+							}
+						}
+					}
+				}
+				br.close(); 
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+
 		}
 	}
 

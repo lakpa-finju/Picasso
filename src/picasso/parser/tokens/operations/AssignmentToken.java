@@ -7,13 +7,12 @@ import picasso.parser.tokens.chars.CharToken;
  * Represents the plus sign token
  * 
  */
-public class PlusToken extends CharToken implements OperationInterface {
-	public PlusToken() {
-		super(CharConstants.PLUS);
+public class AssignmentToken extends CharToken implements OperationInterface {
+	public AssignmentToken() {
+		super(CharConstants.EQUAL);
 	}
 
-	@Override
 	public int orderOfOperation() {
-		return 2;
+		return 0;
 	}
 }

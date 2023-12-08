@@ -4,16 +4,17 @@ import picasso.parser.language.CharConstants;
 import picasso.parser.tokens.chars.CharToken;
 
 /**
- * Represents the plus sign token
+ * Represents the modulo token
  * 
+ * @author Liz Kent
  */
-public class PlusToken extends CharToken implements OperationInterface {
-	public PlusToken() {
-		super(CharConstants.PLUS);
+public class ModToken extends CharToken implements OperationInterface {
+	public ModToken() {
+		super(CharConstants.MOD);
 	}
 
 	@Override
 	public int orderOfOperation() {
-		return 2;
+		return 3;
 	}
 }

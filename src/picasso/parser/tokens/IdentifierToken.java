@@ -49,4 +49,9 @@ public class IdentifierToken extends Token {
 		return false;
 	}
 
+	@Override
+	public boolean isPushedToPostfix() {
+		return true;
+	}
+
 }

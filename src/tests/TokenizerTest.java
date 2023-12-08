@@ -19,7 +19,10 @@ import picasso.parser.language.expressions.Y;
 import picasso.parser.tokens.*;
 import picasso.parser.tokens.chars.*;
 import picasso.parser.tokens.functions.*;
+import picasso.parser.tokens.operations.AssignmentToken;
+import picasso.parser.tokens.operations.DivideToken;
 import picasso.parser.tokens.operations.PlusToken;
+import picasso.parser.tokens.operations.ModToken;
 
 /**
  * Tests that the tokenizer tokens as expected. 
@@ -111,7 +114,7 @@ public class TokenizerTest {
 	}
 	
 	@Test
-	public void testTokenizeBasicFunctionExpressionCeil() {
+	public void testTokenizeBasicFunctionExpressionCeilwithX() {
 		String expression = "ceil(x)";
 		tokens = tokenizer.parseTokens(expression);
 		assertEquals(new CeilToken(), tokens.get(0));
@@ -121,7 +124,17 @@ public class TokenizerTest {
 	}
 	
 	@Test
-	 public void testTokenizeBasicFunctionExpressionAbs() {
+	public void testTokenizeBasicFunctionExpressionCeilwithY() {
+		String expression = "ceil(y)";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new CeilToken(), tokens.get(0));
+		assertEquals(new LeftParenToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("y"), tokens.get(2));
+		assertEquals(new RightParenToken(), tokens.get(3));
+	}
+	
+	@Test
+	 public void testTokenizeBasicFunctionExpressionAbswithX() {
 	  String expression = "abs(x)";
 	  tokens = tokenizer.parseTokens(expression);
 	  assertEquals(new AbsToken(), tokens.get(0));
@@ -130,8 +143,18 @@ public class TokenizerTest {
 	  assertEquals(new RightParenToken(), tokens.get(3));
 	 }
 	
+	@Test
+	 public void testTokenizeBasicFunctionExpressionAbswithY() {
+	  String expression = "abs(y)";
+	  tokens = tokenizer.parseTokens(expression);
+	  assertEquals(new AbsToken(), tokens.get(0));
+	  assertEquals(new LeftParenToken(), tokens.get(1));
+	  assertEquals(new IdentifierToken("y"), tokens.get(2));
+	  assertEquals(new RightParenToken(), tokens.get(3));
+	 }
+	
   @Test
-	public void testTokenizeBasicFunctionExpressionClamp() {
+	public void testTokenizeBasicFunctionExpressionClampwithX() {
 		String expression = "clamp(x)";
 		tokens = tokenizer.parseTokens(expression);
 		assertEquals(new ClampToken(), tokens.get(0));
@@ -139,14 +162,34 @@ public class TokenizerTest {
 		assertEquals(new IdentifierToken("x"), tokens.get(2));
 		assertEquals(new RightParenToken(), tokens.get(3));
 	}
-
+  
+  @Test
+	public void testTokenizeBasicFunctionExpressionClampwithY() {
+		String expression = "clamp(y)";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new ClampToken(), tokens.get(0));
+		assertEquals(new LeftParenToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("y"), tokens.get(2));
+		assertEquals(new RightParenToken(), tokens.get(3));
+	}
 	@Test
-	public void testTokenizeBasicFunctionExpressionSin() {
+	public void testTokenizeBasicFunctionExpressionSinwithX() {
 		String expression = "sin(x)";
 		tokens = tokenizer.parseTokens(expression);
 		assertEquals(new SinToken(), tokens.get(0));
 		assertEquals(new LeftParenToken(), tokens.get(1));
 		assertEquals(new IdentifierToken("x"), tokens.get(2));
+		assertEquals(new RightParenToken(), tokens.get(3));
+
+	}
+	
+	@Test
+	public void testTokenizeBasicFunctionExpressionSinwithY() {
+		String expression = "sin(y)";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new SinToken(), tokens.get(0));
+		assertEquals(new LeftParenToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("y"), tokens.get(2));
 		assertEquals(new RightParenToken(), tokens.get(3));
 
 	}
@@ -158,8 +201,39 @@ public class TokenizerTest {
 		assertEquals(new IdentifierToken("x"), tokens.get(0));
 		assertEquals(new PlusToken(), tokens.get(1));
 		assertEquals(new IdentifierToken("y"), tokens.get(2));
-
 	}
+	
+	@Test
+	public void testTokenizeAssignment() {
+		String expression = "a = x + y";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new IdentifierToken("a"), tokens.get(0));
+		assertEquals(new AssignmentToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("x"), tokens.get(2));
+		assertEquals(new PlusToken(), tokens.get(3));
+		assertEquals(new IdentifierToken("y"), tokens.get(4));
+	}
+	
+	@Test
+	public void testTokenizeBasicFunctionExpressionDivision() {
+		String expression = "x / y";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new IdentifierToken("x"), tokens.get(0));
+		assertEquals(new DivideToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("y"), tokens.get(2));
+	}
+
+	@Test
+	public void testTokenizeFunctionExpressionAddDivide() {
+		String expression = "x / y + x";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new IdentifierToken("x"), tokens.get(0));
+		assertEquals(new DivideToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("y"), tokens.get(2));
+		assertEquals(new PlusToken(), tokens.get(3));
+		assertEquals(new IdentifierToken("x"), tokens.get(4));
+	}
+
 	
 	@Test
 	public void testTokenizeBasicFunctionExpressionImageWrap() {
@@ -175,6 +249,17 @@ public class TokenizerTest {
 		assertEquals(new RightParenToken(), tokens.get(7));
 
 	}
+
+	@Test
+	public void testTokenizeFunctionExpressionModulo() {
+		String expression = "x % y";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new IdentifierToken("x"), tokens.get(0));
+		assertEquals(new ModToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("y"), tokens.get(2));
+	}
+	
+
 	// TODO: Test arithmetic (rather than function-based) expressions ...
 
 }

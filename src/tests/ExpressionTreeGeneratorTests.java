@@ -129,6 +129,7 @@ public class ExpressionTreeGeneratorTests {
 		assertEquals(new Sin(new Addition(new X(), new Y())), e);
 
 	}
+
 	
 	@Test
 	public void imageWrapFunctionTests() {
@@ -144,5 +145,30 @@ public class ExpressionTreeGeneratorTests {
 	}
 	
 	
+
+
+
+	/**
+	 * For now only tests binary operators
+	 */
+	@Test
+	public void orderOfOperationTest() {
+		//precedence 1 and 2
+		ExpressionTreeNode e = parser.makeExpression("x + y / x");
+		assertEquals(new Addition (new X(), new Division(new Y(), new X())), e);
+
+		//precedence 3 and 4
+		ExpressionTreeNode f = parser.makeExpression("x / y ^ x");
+		assertNotEquals(new Exponentiation (new Y(), new Division(new X(), new Y())), f);
+		assertEquals(new Division (new X(), new Exponentiation(new Y(), new X())), f);
+
+		//same precedence
+		ExpressionTreeNode g = parser.makeExpression("x + y - x");
+		assertEquals(new Subtraction(new Addition(new X(), new Y()), new X()), g);
+
+		//same precedence
+		ExpressionTreeNode h = parser.makeExpression("x % y * x");
+		assertEquals(new Multiplication(new Modulo(new X(), new Y()), new X()), h);
+ 	}
 
 }
