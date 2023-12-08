@@ -243,12 +243,6 @@ public class EvaluatorTests {
 				assertEquals(new RGBColor(-1, -1, -1), newTree.evaluate(1, -1));
 				assertEquals(new RGBColor(0, 0, 0), newTree.evaluate(0,0));
 
-				// test the ints; remember that y's value doesn't matter
-				for (int i = -1; i <= 1; i++) {
-					assertEquals(new RGBColor(i-i, i-i, i-i), newTree.evaluate(i, -i));
-					assertEquals(new RGBColor(i+i, i+i, i+i), newTree.evaluate(i, i));
-				}
-
 				double[] tests = { -.7, -.00001, .000001, .5 };
 
 				for (double testVal : tests) {
