@@ -16,6 +16,21 @@ public class StringToken extends Token{
 		super("String Token");
 		this.myValue = val;
 	}
+	
+	/**
+	 * @return true iff o is a StringToken with same value
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+		if (!(o instanceof StringToken)) {
+			return false;
+		}
+		StringToken other = (StringToken) o;
+		return myValue == other.myValue;
+	}
 
 	@Override
 	public boolean isConstant() {

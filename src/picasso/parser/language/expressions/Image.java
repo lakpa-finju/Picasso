@@ -126,5 +126,29 @@ public class Image extends ExpressionTreeNode {
 
 		return new RGBColor(imageColor);
 	}//
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+
+		if (!(o instanceof Image)) {
+			return false;
+		}
+
+		// Make sure the objects are the same type
+		if (o.getClass() != this.getClass()) {
+			return false;
+		}
+
+		Image other = (Image) o;
+		if (!other.getSize().equals(this.getSize())) {
+			return false;
+		}
+
+		return true;
+
+	}
 
 }

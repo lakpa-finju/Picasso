@@ -62,5 +62,24 @@ public class ImageWrap extends ExpressionTreeNode{
 		
 		return new RGBColor(imageColor);
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+
+		if (!(o instanceof ImageWrap)) {
+			return false;
+		}
+
+		// Make sure the objects are the same type
+		if (o.getClass() != this.getClass()) {
+			return false;
+		}
+
+		return true;
+
+	}
 
 }
