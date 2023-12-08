@@ -41,16 +41,13 @@ public class Evaluator implements Command<Pixmap> {
 		ExpressionTreeNode expr = null;
 		
 		//Try to catch a parse exception and display the error message if so
-		System.out.println("Input: " + input);
 		try {
 			expr = createExpression(input);
-			System.out.println("Generated Expression");
 		}
 		catch(ParseException e){
 			String errorFile = System.getProperty("user.dir") +
 					"\\images\\Error_Input.png";
 			target.read(errorFile);
-			System.out.println("returning nothing");
 			return;//stop execution, wait for next input to run again
 		}
 		
