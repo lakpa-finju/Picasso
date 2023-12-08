@@ -186,6 +186,34 @@ public class EvaluatorTests {
 			assertEquals(new RGBColor(testVal + 1, testVal + 1, testVal + 1), myTree.evaluate(testVal, 1));
 		}
 	}
+	
+	@Test
+	public void testImageWrapEvaluation() {
+		ImageWrap myTree = new ImageWrap(new StringToken("foo.jpg"), new X(), new Y());
+		Image image = new Image("foo.jpg");
+		RGBColor xCoordinateColor = myTree.evaluate(-1,-1);
+		RGBColor yCoordinateColor = myTree.evaluate(-1,-1);
+		//need to wrap here
+		double redX = myTree.wrap(xCoordinateColor.getRed(), -1,1);
+		double redY = myTree.wrap(yCoordinateColor.getRed(),-1,1);
+		int imageX = image.domainScaleToImageX(redX);
+		int imageY = image.domainScaleToImageY(redY);
+		Color imageColor = image.getColor(imageX, imageY);
+		
+		assertEquals(new RGBColor(imageColor), myTree.evaluate(-1,-1));
+		
+		RGBColor xCoordinateColor2 = myTree.evaluate(0,-1);
+		RGBColor yCoordinateColor2 = myTree.evaluate(0,-1);
+		//need to wrap here
+		double redX2 = myTree.wrap(xCoordinateColor2.getRed(), 0,1);
+		double redY2 = myTree.wrap(yCoordinateColor2.getRed(),0,1);
+		int imageX2 = image.domainScaleToImageX(redX2);
+		int imageY2 = image.domainScaleToImageY(redY2);
+		Color imageColor2 = image.getColor(imageX2, imageY2);
+		
+		//assertEquals(new RGBColor(imageColor2), myTree.evaluate(0,-1));
+		
+	}
 
 
 }

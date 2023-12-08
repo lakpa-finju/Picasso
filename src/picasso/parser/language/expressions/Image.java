@@ -93,8 +93,15 @@ public class Image extends ExpressionTreeNode {
 	/**
 	 * Convert from image space to domain space.
 	 */
-	protected int domainScaleToImage(double value) {
-		double range = 255-0;
+	public int domainScaleToImageX(double value) {
+		double range = mySize.getWidth();
+		return (int) ((value - (-1)) * range) / BOUNDS;
+	}
+	/**
+	 * Convert from image space to domain space.
+	 */
+	public int domainScaleToImageY(double value) {
+		double range = mySize.getHeight();
 		return (int) ((value - (-1)) * range) / BOUNDS;
 	}
 
@@ -120,8 +127,8 @@ public class Image extends ExpressionTreeNode {
 		// return new RGBColor(x, x);
 		// ask professor about this
 
-		int imageX = domainScaleToImage(x);
-		int imageY = domainScaleToImage(y);
+		int imageX = domainScaleToImageX(x);
+		int imageY = domainScaleToImageY(y);
 		Color imageColor = getColor(imageX, imageY);
 
 		return new RGBColor(imageColor);

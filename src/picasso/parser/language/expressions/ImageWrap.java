@@ -53,11 +53,10 @@ public class ImageWrap extends ExpressionTreeNode{
 		RGBColor xCoordinateColor = xCoordinateETN.evaluate(x, y);
 		RGBColor yCoordinateColor = xCoordinateETN.evaluate(x, y);
 		//need to wrap here
-		double redX = xCoordinateColor.getRed();
-		double redY = yCoordinateColor.getRed();
-		int imageX = image.domainScaleToImage(redX);
-
-		int imageY = image.domainScaleToImage(redY);
+		double redX = wrap(xCoordinateColor.getRed(), -1,1);
+		double redY = wrap(yCoordinateColor.getRed(),-1,1);
+		int imageX = image.domainScaleToImageX(redX);
+		int imageY = image.domainScaleToImageY(redY);
 		Color imageColor = image.getColor(imageX, imageY);
 		
 		
