@@ -16,6 +16,7 @@ import picasso.parser.tokens.StringToken;
 /**
  * Represents ImageWrap function in the Picasso language
  * @author lakpafinjusherpa
+ * @author Liz Kent
  */
 public class ImageWrap extends ExpressionTreeNode{
 	public static final Dimension DEFAULT_SIZE = new Dimension(300, 300);
@@ -61,6 +62,43 @@ public class ImageWrap extends ExpressionTreeNode{
 		
 		
 		return new RGBColor(imageColor);
+	}
+
+	/**
+	 * A wrapper function for doubles. 
+	 * Specs: takes any number not within upperBound and
+	 * lowerBound, removes the amount over the 
+	 * limit in either direction and returns a number within range.
+	 * Ex. For range -1.0 to 1.0, input of -1.25 should return .75. 1.5 should 
+	 * return -.5.
+	 * 
+	 * @param n number to be wrapped
+	 * @param lowerBound lower bound of range, inclusive
+	 * @param upperBound upper bound of range, inclusive
+	 */
+	public double wrap(double n, double lowerBound, double upperBound){
+		return (n - lowerBound) % (upperBound - lowerBound) + lowerBound;
+	}
+
+	/**
+	 * A wrapper function for RGBColors. 
+	 * See wrap function for doubles for how numbers should wrap
+	 * 
+	 * @param input RGBColor to be wrapped
+	 * @param lowerBound lower bound of range, inclusive
+	 * @param upperBound upper bound of range, inclusive
+	 */
+	public RGBColor wrap(RGBColor input, double lowerBound, double upperBound){
+		double red = input.getRed();
+		double green = input.getGreen();
+		double blue = input.getBlue();
+
+		red = wrap(red, -1.0, 1.0);
+		green = wrap(green, -1.0, 1.0);
+		blue = wrap(blue, -1.0, 1.0);
+
+		return new RGBColor(red, green, blue);
+
 	}
 	
 	@Override

@@ -27,7 +27,6 @@ public class ImageWrapAnalyzer implements SemanticAnalyzerInterface {
 	@Override
 	public ExpressionTreeNode generateExpressionTree(Stack<Token> tokens) {
 		tokens.pop(); //pop imageWrap
-		// TODO Auto-generated method stub
 		//ImageWrap("image.jpg",x+x,y
 		//imageWrap y + x x image.jpg -- is the stack 
 		ExpressionTreeNode yCoordinateETN = SemanticAnalyzer.getInstance().generateExpressionTree(tokens);

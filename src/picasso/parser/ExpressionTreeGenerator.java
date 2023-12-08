@@ -98,7 +98,7 @@ public class ExpressionTreeGenerator {
 			} else if (token instanceof FunctionToken) {
 				operators.push(token);
 			} else if (token instanceof StringToken) {
-				postfixResult.add(token);
+				postfixResult.push(token);
 
 			} else if (token instanceof OperationInterface) {
 
