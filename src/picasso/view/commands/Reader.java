@@ -30,7 +30,6 @@ public class Reader extends FileCommand<Pixmap> {
 	 * message will be displayed instead.
 	 */
 	public void execute(Pixmap target) {
-		//Called when you press open image or open expression
 		String fileName = getFileName();
 		if (fileName != null) {
 			String suffix = fileName.substring(fileName.lastIndexOf("."));
@@ -38,6 +37,7 @@ public class Reader extends FileCommand<Pixmap> {
 				target.read(fileName);
 			}
 			else {
+				//get user's path to the error image
 				String errorFile = System.getProperty("user.dir") +
 						File.separator +"images" + File.separator + "Error_Image.png";
 				target.read(errorFile);
