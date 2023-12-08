@@ -42,6 +42,7 @@ public class CharTokenFactory {
 		tokenList[CharConstants.MOD] = new ModToken();
 		tokenList[CharConstants.STAR] = new TimesToken();
 		tokenList[CharConstants.MINUS] = new MinusToken();
+		tokenList[CharConstants.BANG] = new NegateToken();
 
 
 
