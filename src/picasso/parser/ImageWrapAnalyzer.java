@@ -35,7 +35,7 @@ public class ImageWrapAnalyzer implements SemanticAnalyzerInterface {
 			throw new ParseException("Input for image is not valid");
 		}
 		StringToken image =(StringToken)tokens.pop();
-		return new ImageWrap(image,yCoordinateETN,xCoordinateETN);
+		return new ImageWrap(image,xCoordinateETN,yCoordinateETN);
 	}
 
 }

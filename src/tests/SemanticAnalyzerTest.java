@@ -149,7 +149,7 @@ class SemanticAnalyzerTest {
 		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
 
 		assertEquals(new ImageWrap(new StringToken("foo.jpg"), new X(), new Y()), actual);
-  
+	}
   @Test
 	void testParseSinwithY() {
 

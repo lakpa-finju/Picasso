@@ -20,7 +20,7 @@ import picasso.parser.tokens.StringToken;
  */
 public class ImageWrap extends ExpressionTreeNode{
 	public static final Dimension DEFAULT_SIZE = new Dimension(300, 300);
-	public static final Color DEFAULT_COLOR = Color.BLACK;
+	//public static final Color DEFAULT_COLOR = Color.BLACK;
 	public static final double DOMAIN_MIN = -1;
 	public static final double DOMAIN_MAX = 1;
 	private Image image;
@@ -51,10 +51,11 @@ public class ImageWrap extends ExpressionTreeNode{
 		//evaluaete x and y
 		//just use x and Y 
 		RGBColor xCoordinateColor = xCoordinateETN.evaluate(x, y);
-		RGBColor yCoordinateColor = xCoordinateETN.evaluate(x, y);
+		RGBColor yCoordinateColor = yCoordinateETN.evaluate(x, y);
 		//need to wrap here
 		double redX = wrap(xCoordinateColor.getRed(), -1,1);
-		double redY = wrap(yCoordinateColor.getRed(),-1,1);
+		double redY = wrap(yCoordinateColor.getRed()
+				,-1,1);
 		int imageX = image.domainScaleToImageX(redX);
 		int imageY = image.domainScaleToImageY(redY);
 		Color imageColor = image.getColor(imageX, imageY);
