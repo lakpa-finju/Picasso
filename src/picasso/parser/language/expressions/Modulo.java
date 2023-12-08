@@ -3,32 +3,42 @@ package picasso.parser.language.expressions;
 import picasso.parser.language.ExpressionTreeNode;
 
 /**
- * This class represents the multiplication operation.
+ * This class represents the modulo operation.
  * 
  * @author Liz Kent
  */
-public class Multiplication extends ExpressionTreeNode {
+public class Modulo extends ExpressionTreeNode {
 	ExpressionTreeNode left;
 	ExpressionTreeNode right;
 
-	public Multiplication(ExpressionTreeNode left, ExpressionTreeNode right) {
+	public Modulo(ExpressionTreeNode left, ExpressionTreeNode right) {
 		this.left = left;
 		this.right = right;
 	}
 
 	/**
 	 * Evaluates this expression at the given x,y point by producing a color
-     * based on the function's parameter.
+     * based on the function's parameter. Handles modulo by 0 as well
 	 * 
-	 * @return the color from evaluating the multiplication of the expression's parameter
+	 * @return the color from evaluating the modulo of the expression's parameter
 	 */
 	@Override
 	public RGBColor evaluate(double x, double y) {
 		RGBColor leftResult = left.evaluate(x, y);
 		RGBColor rightResult = right.evaluate(x, y);
-		double red = leftResult.getRed() * rightResult.getRed();
-		double green = leftResult.getGreen() * rightResult.getGreen();
-		double blue = leftResult.getBlue() * rightResult.getBlue();
+        double red = 0.0;
+        double green = 0.0;
+        double blue = 0.0;
+
+        if (rightResult.getRed() != 0.0){
+            red = leftResult.getRed() % rightResult.getRed();
+        }
+        if (rightResult.getGreen() != 0.0){
+             green = leftResult.getGreen() % rightResult.getGreen();
+        }
+        if (rightResult.getBlue() != 0.0){
+             blue = leftResult.getBlue() % rightResult.getBlue();
+        }
 
 		return new RGBColor(red, green, blue);
 	}
@@ -39,7 +49,7 @@ public class Multiplication extends ExpressionTreeNode {
 			return true;
 		}
 
-		if (!(o instanceof Multiplication)) {
+		if (!(o instanceof Modulo)) {
 			return false;
 		}
 
@@ -48,7 +58,7 @@ public class Multiplication extends ExpressionTreeNode {
 			return false;
 		}
 
-		Multiplication other = (Multiplication) o;
+		Modulo other = (Modulo) o;
 		if (!other.left.equals(this.left)) {
 			return false;
 		}
@@ -64,10 +74,9 @@ public class Multiplication extends ExpressionTreeNode {
     public String toString(){
         StringBuilder str = new StringBuilder(""); 
         str.append(left); 
-        str.append(" * "); 
+        str.append(" % "); 
         str.append(right);
         return str.toString(); 
     }
 
 }
-
