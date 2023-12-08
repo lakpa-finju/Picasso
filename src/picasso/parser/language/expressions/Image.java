@@ -36,9 +36,9 @@ public class Image extends ExpressionTreeNode {
 	 * Creates a new String class in a picasso
 	 */
 	public Image(String val) {
-		/*if (value == null) {
+		if (val == null) {
 			throw new IllegalArgumentException("String is null, make sure to enter something");
-		}*/
+		}
 		value = val;
 		read(value);
 	}

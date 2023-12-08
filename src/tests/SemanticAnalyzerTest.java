@@ -16,6 +16,7 @@ import picasso.parser.language.expressions.*;
 import picasso.parser.tokens.*;
 import picasso.parser.tokens.functions.AbsToken;
 import picasso.parser.tokens.functions.CeilToken;
+import picasso.parser.tokens.functions.ImageWrapToken;
 import picasso.parser.tokens.functions.SinToken;
 import picasso.parser.tokens.operations.*;
 
@@ -95,5 +96,19 @@ class SemanticAnalyzerTest {
 		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
 
 		assertEquals(new Sin(new X()), actual);
+	}
+	
+	@Test
+	void testParseImageWrap() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new StringToken("foo.jpg"));
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new ImageWrapToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new ImageWrap(new StringToken("foo.jpg"), new X(), new Y()), actual);
 	}
 }
