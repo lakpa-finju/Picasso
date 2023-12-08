@@ -5,6 +5,7 @@ import java.io.StreamTokenizer;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import picasso.parser.ParseException;
@@ -43,12 +44,13 @@ public class TokenFactory {
 					return new IdentifierToken(tokenizer.sval);
 				}
 				return t;
+			//case 
 			case '[':
 				// parse a color token if it starts with a [
 				return parseColorToken(tokenizer);
 				
 			case '"':
-				return CharTokenFactory.getToken('"');
+				return new StringToken(tokenizer.sval);
 				
 			case ',':
 				return CharTokenFactory.getToken(',');
@@ -129,6 +131,7 @@ public class TokenFactory {
 		return new ColorToken(red.value(), green.value(), blue.value());
 	}
 
+	
 	/**
 	 * Add the built-in functions as tokens
 	 */

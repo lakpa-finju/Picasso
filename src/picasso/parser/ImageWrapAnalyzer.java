@@ -33,12 +33,10 @@ public class ImageWrapAnalyzer implements SemanticAnalyzerInterface {
 		//imageWrap y + x x image.jpg -- is the stack 
 		ExpressionTreeNode yCoordinateETN = SemanticAnalyzer.getInstance().generateExpressionTree(tokens);
 		ExpressionTreeNode xCoordinateETN = SemanticAnalyzer.getInstance().generateExpressionTree(tokens);
-		String fileName =tokens.pop().toString(); // file Name
-		System.out.print("this is fileName: "+fileName);
 		if(!(tokens.peek() instanceof StringToken)) {
 			throw new ParseException("Input for image is not valid");
 		}
-		StringToken image =(StringToken) tokens.pop();
+		StringToken image =(StringToken)tokens.pop();
 		return new ImageWrap(image,yCoordinateETN,xCoordinateETN);
 	}
 

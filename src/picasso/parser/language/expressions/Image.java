@@ -36,9 +36,9 @@ public class Image extends ExpressionTreeNode {
 	 * Creates a new String class in a picasso
 	 */
 	public Image(String val) {
-		if (value == null) {
+		/*if (value == null) {
 			throw new IllegalArgumentException("String is null, make sure to enter something");
-		}
+		}*/
 		value = val;
 		read(value);
 	}
@@ -51,7 +51,7 @@ public class Image extends ExpressionTreeNode {
 	 */
 	public void read(String fileName) {
 		try {
-			myImage = ImageIO.read(new File(fileName));
+			myImage = ImageIO.read(new File("./images/"+fileName));
 			mySize = new Dimension(myImage.getWidth(), myImage.getHeight());
 		} catch (IOException e) {
 			e.printStackTrace();

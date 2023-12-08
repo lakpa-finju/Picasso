@@ -97,6 +97,9 @@ public class ExpressionTreeGenerator {
 				postfixResult.push(token);
 			} else if (token instanceof FunctionToken) {
 				operators.push(token);
+			} else if (token instanceof StringToken) {
+				postfixResult.add(token);
+
 			} else if (token instanceof OperationInterface) {
 
 				/*
@@ -155,30 +158,8 @@ public class ExpressionTreeGenerator {
 					postfixResult.push(operators.pop());
 				}
 
-			} else if (token instanceof QuoteToken) {
-				operators.push(token);
-			} else if (token instanceof QuoteToken) {
-				// Until the token at the top of the stack is a left
-				// parenthesis, pop operators off the stack onto the output
-				// queue.
-				while (operators.size() > 0 && !(operators.peek() instanceof QuoteToken)) {
-					postfixResult.push(operators.pop());
-				}
-
-				// Pop the left parenthesis from the stack, but not onto the
-				// output queue.
-				if (operators.isEmpty()) {
-					throw new ParseException("Missing \"");
-				}
-				operators.pop();
-
-				// If the token at the top of the stack is a function token, pop
-				// it onto the output queue.
-				if (operators.size() > 0 && operators.peek() instanceof FunctionToken) {
-					postfixResult.push(operators.pop());
-				}
 			}
-			
+
 			else {
 				System.out.println("ERROR: No match: " + token);
 			}

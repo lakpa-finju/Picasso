@@ -62,7 +62,6 @@ public class Tokenizer {
 
 		tokenizer.slashSlashComments(true);
 		tokenizer.slashStarComments(true);
-		
 
 		List<Token> tokens = new ArrayList<Token>();
 

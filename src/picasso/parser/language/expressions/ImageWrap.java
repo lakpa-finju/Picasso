@@ -38,7 +38,8 @@ public class ImageWrap extends ExpressionTreeNode{
 	 * @param rightETN right expression tree node
 	 */
 	public ImageWrap(StringToken fileName, ExpressionTreeNode leftETN, ExpressionTreeNode rightETN) {
-		this.image = new Image(fileName.value());
+		System.out.print("this is the value of token. "+ fileName.value());
+		this.image = new Image((String)fileName.value());
 		this.xCoordinateETN = leftETN;
 		this.yCoordinateETN = rightETN;
 		
