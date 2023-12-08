@@ -12,6 +12,7 @@ import picasso.parser.ExpressionTreeGenerator;
 import picasso.parser.language.ExpressionTreeNode;
 import picasso.parser.language.expressions.*;
 import picasso.parser.tokens.IdentifierToken;
+import picasso.parser.tokens.StringToken;
 import picasso.parser.tokens.Token;
 import picasso.parser.tokens.operations.PlusToken;
 
@@ -129,6 +130,24 @@ public class ExpressionTreeGeneratorTests {
 
 	}
 
+	
+	@Test
+	public void imageWrapFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("imageWrap(\"foo.jpg\", x, y)");
+		StringToken stringTok = new StringToken("foo.jpg");
+		assertEquals(new ImageWrap(stringTok, new X(), new Y()), e);
+		
+		e = parser.makeExpression("imageWrap(\"vortex.jpg\", x, y)");
+		StringToken stringToken = new StringToken("vortex.jpg");
+		assertEquals(new ImageWrap(stringToken, new X(),  new Y()), e);
+				
+
+	}
+	
+	
+
+
+
 	/**
 	 * For now only tests binary operators
 	 */
@@ -151,4 +170,5 @@ public class ExpressionTreeGeneratorTests {
 		ExpressionTreeNode h = parser.makeExpression("x % y * x");
 		assertEquals(new Multiplication(new Modulo(new X(), new Y()), new X()), h);
  	}
+
 }
