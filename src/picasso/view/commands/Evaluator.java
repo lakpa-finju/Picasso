@@ -2,8 +2,10 @@ package picasso.view.commands;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.File;
 import java.util.Scanner;
 
+import java.io.File;
 import picasso.model.Pixmap;
 import picasso.parser.ExpressionTreeGenerator;
 import picasso.parser.ParseException;
@@ -41,16 +43,14 @@ public class Evaluator implements Command<Pixmap> {
 		ExpressionTreeNode expr = null;
 		
 		//Try to catch a parse exception and display the error message if so
-		System.out.println("Input: " + input);
 		try {
 			expr = createExpression(input);
-			System.out.println("Generated Expression");
 		}
 		catch(ParseException e){
+			//Get 
 			String errorFile = System.getProperty("user.dir") +
-					"\\images\\Error_Input.png";
+					File.separator +"images" + File.separator + "Error_Image.png";
 			target.read(errorFile);
-			System.out.println("returning nothing");
 			return;//stop execution, wait for next input to run again
 		}
 		

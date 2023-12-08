@@ -1,6 +1,9 @@
 package picasso.view.commands;
 
+import java.io.File;
+
 import javax.swing.JFileChooser;
+
 
 import picasso.model.Pixmap;
 import picasso.util.FileCommand;
@@ -40,7 +43,7 @@ public class Reader extends FileCommand<Pixmap> {
 			else {
 				System.out.println("error");
 				String errorFile = System.getProperty("user.dir") +
-						"\\images\\Error_Image.png";
+						File.separator +"images" + File.separator + "Error_Image.png";
 				
 				target.read(errorFile);
 			}
