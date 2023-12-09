@@ -299,7 +299,6 @@ public class EvaluatorTests {
 		}
 
 	}
-=======
 	
 	@Test
 	public void testRgbToYCrCbEvaluationwithX() { 
