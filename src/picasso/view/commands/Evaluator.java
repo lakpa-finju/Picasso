@@ -10,6 +10,7 @@ import picasso.parser.ParseException;
 import picasso.parser.language.ExpressionTreeNode;
 import picasso.util.Command;
 import picasso.view.ButtonPanel;
+import picasso.view.HistoryPanel;
 
 /**
  * Evaluate an expression for each pixel in a image.
@@ -23,13 +24,15 @@ public class Evaluator implements Command<Pixmap> {
 	public static final double DOMAIN_MAX = 1;
 	
 	private ButtonPanel buttonpanel; 
+	private HistoryPanel historypanel; 
 	
 	/**
 	 * Constructor
 	 * @param mybuttonpanel
 	 */
-	public Evaluator(ButtonPanel mybuttonpanel) {
+	public Evaluator(ButtonPanel mybuttonpanel, HistoryPanel myhistorypanel) {
 		buttonpanel = mybuttonpanel; 
+		historypanel = myhistorypanel; 
 	}
 	/**
 	 * Evaluate an expression for each point in the image.
@@ -38,11 +41,15 @@ public class Evaluator implements Command<Pixmap> {
 
 		// create the expression to evaluate just once
 		String input = buttonpanel.getInput(); 
+//		historypanel.addExpressionHistory(input); 
 		ExpressionTreeNode expr = null;
 		
 		//Try to catch a parse exception and display the error message if so
 		try {
 			expr = createExpression(input);
+			if (expr != null) {
+				historypanel.addExpressionHistory(input); 
+			}
 		}
 		catch(ParseException e){
 			//Get the user's path to the error image
