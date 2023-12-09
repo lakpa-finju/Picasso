@@ -258,8 +258,23 @@ public class TokenizerTest {
 		assertEquals(new ModToken(), tokens.get(1));
 		assertEquals(new IdentifierToken("y"), tokens.get(2));
 	}
+	@Test
+	public void testTokenizeBasicFunctionRgbToYCrCb() {
+		String expression = "rgbToYCrCb(x)";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new RgbToYCrCbToken(), tokens.get(0));
+		assertEquals(new LeftParenToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("x"), tokens.get(2));
+		assertEquals(new RightParenToken(), tokens.get(3));
+	}
 	
-
-	// TODO: Test arithmetic (rather than function-based) expressions ...
-
+	@Test
+	public void testTokenizeBasicFunctionYCrCbToRGB() {
+		String expression = "yCrCbToRGB(x)";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new YCrCbToRGBToken(), tokens.get(0));
+		assertEquals(new LeftParenToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("x"), tokens.get(2));
+		assertEquals(new RightParenToken(), tokens.get(3));
+	}
 }
