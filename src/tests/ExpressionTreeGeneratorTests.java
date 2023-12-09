@@ -144,9 +144,17 @@ public class ExpressionTreeGeneratorTests {
 
 	}
 	
+	@Test
+	public void wrapFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("wrap(x)");
+		assertEquals(new Wrap(new X()), e);
+		
+		e = parser.makeExpression("wrap(x+x)");
+		assertEquals(new Wrap(new Addition(new X(), new X())), e);
+				
+
+	}
 	
-
-
 
 	/**
 	 * For now only tests binary operators

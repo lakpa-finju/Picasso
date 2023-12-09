@@ -22,6 +22,7 @@ import picasso.parser.tokens.functions.ImageWrapToken;
 import picasso.parser.tokens.functions.ClampToken;
 
 import picasso.parser.tokens.functions.SinToken;
+import picasso.parser.tokens.functions.WrapToken;
 import picasso.parser.tokens.operations.*;
 
 /**
@@ -218,6 +219,19 @@ class SemanticAnalyzerTest {
 		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
 
 		assertEquals(new Modulo(new X(), new Y()), actual);
+
+	}
+	
+	@Test
+	void testParseWrap() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new WrapToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Wrap(new X()), actual);
 
 	}
 }

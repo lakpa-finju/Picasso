@@ -77,5 +77,24 @@ public class Wrap extends UnaryFunction {
 
 		return new RGBColor(red, green, blue);
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+
+		if (!(o instanceof Wrap)) {
+			return false;
+		}
+
+		// Make sure the objects are the same type
+		if (o.getClass() != this.getClass()) {
+			return false;
+		}
+
+		return true;
+
+	}
 
 }
