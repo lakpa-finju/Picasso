@@ -239,33 +239,6 @@ public class EvaluatorTests {
 		//assertEquals(new RGBColor(imageColor2), myTree.evaluate(0,-1));
 		
 	}
-
-
-	@Test
-	public void testAssignmentEvaluationwithAbs() {
-//		Assignment assignmentValue = new Assignment(new Variable("a"), new Addition(new X(), new Y())); 
-//		Abs myTree = new Abs(assignmentValue); 		
-//		
-//		// some straightforward tests
-//		// some straightforward tests
-//				assertEquals(new RGBColor(1, 1, 1), myTree.evaluate(0, 1));
-//				assertEquals(new RGBColor(1, 1, 1), myTree.evaluate(1, -1));
-//				assertEquals(new RGBColor(1, 1, 1), myTree.evaluate(0,0));
-//
-////				// test the ints; remember that y's value doesn't matter
-////				for (int i = -1; i <= 1; i++) {
-////					assertEquals(new RGBColor(i-i, i-i, i-i), myTree.evaluate(i, -i));
-////					assertEquals(new RGBColor(i+i, i+i, i+i), myTree.evaluate(i, i));
-////				}
-////
-////				double[] tests = { -.7, -.00001, .000001, .5 };
-////
-////				for (double testVal : tests) {
-////					assertEquals(new RGBColor(testVal-1, testVal-1, testVal-1), myTree.evaluate(testVal, -1));
-////					assertEquals(new RGBColor(testVal+1, testVal+1, testVal+1),
-////							myTree.evaluate(testVal, 1));
-////				}
-	}
 	
 	@Test
 	public void testDivisionEvaluation() {
@@ -303,6 +276,83 @@ public class EvaluatorTests {
 				}
 	}
 	
+	@Test
+	public void testRgbToYCrCbEvaluationwithX() { 
+		rgbToYCrCb myTree = new rgbToYCrCb(new X()); 
+		
+		// test the ints; remember that y's value doesn't matter
 
+		double[] tests = { -.7, -.00001, .000001, .5 };
+
+		for (double testVal : tests) {
+			double testValred = testVal * 0.2989 + testVal* 0.5866 + testVal * 0.1145;
+			double testValgreen = testVal * -0.1687 + testVal * -0.3312 + testVal* 0.5;
+			double testValblue = testVal * 0.5000 + testVal * -0.4183 + testVal * -0.0816;
+			
+			
+			assertEquals(new RGBColor(testValred, testValgreen, testValblue), myTree.evaluate(testVal, -1));
+			assertEquals(new RGBColor(testValred, testValgreen, testValblue),
+					myTree.evaluate(testVal, testVal));
+		}
+	}
+	
+	@Test
+	public void testRgbToYCrCbEvaluationwithY() { 
+		rgbToYCrCb myTree = new rgbToYCrCb(new Y()); 
+		
+		// test the ints; remember that x's value doesn't matter
+
+		double[] tests = { -.7, -.00001, .000001, .5 };
+
+		for (double testVal : tests) {
+			double testValred = testVal * 0.2989 + testVal* 0.5866 + testVal * 0.1145;
+			double testValgreen = testVal * -0.1687 + testVal * -0.3312 + testVal* 0.5;
+			double testValblue = testVal * 0.5000 + testVal * -0.4183 + testVal * -0.0816;
+			
+			
+			assertEquals(new RGBColor(testValred, testValgreen, testValblue), myTree.evaluate(0, testVal));
+			assertEquals(new RGBColor(testValred, testValgreen, testValblue),
+					myTree.evaluate(testVal, testVal));
+		}
+	}
+	
+	@Test
+	public void testyCrCbToRGBEvaluationwithX() { 
+		yCrCbToRGB myTree = new yCrCbToRGB(new X()); 
+		
+		// test the ints; remember that x's value doesn't matter
+
+		double[] tests = { -.7, -.00001, .000001, .5 };
+
+		for (double testVal : tests) {
+			double testValred = testVal + testVal * 1.4022;
+			double testValgreen = testVal + testVal * -0.3456 + testVal * -0.7145;
+			double testValblue = testVal + testVal* 1.7710;
+			
+			assertEquals(new RGBColor(testValred, testValgreen, testValblue), myTree.evaluate(testVal, 0));
+			assertEquals(new RGBColor(testValred, testValgreen, testValblue),
+					myTree.evaluate(testVal, testVal));
+		}
+	}
+	
+	@Test
+	public void testyCrCbToRGBEvaluationwithY() { 
+		yCrCbToRGB myTree = new yCrCbToRGB(new Y()); 
+		
+		// test the ints; remember that x's value doesn't matter
+
+		double[] tests = { -.7, -.00001, .000001, .5 };
+
+		for (double testVal : tests) {
+			double testValred = testVal + testVal * 1.4022;
+			double testValgreen = testVal + testVal * -0.3456 + testVal * -0.7145;
+			double testValblue = testVal + testVal* 1.7710;
+			
+			assertEquals(new RGBColor(testValred, testValgreen, testValblue), myTree.evaluate(0, testVal));
+			assertEquals(new RGBColor(testValred, testValgreen, testValblue),
+					myTree.evaluate(testVal, testVal));
+		}
+	}
+	
 
 }
