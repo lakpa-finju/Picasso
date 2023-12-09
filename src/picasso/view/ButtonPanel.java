@@ -2,9 +2,10 @@ package picasso.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JTextField;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.*;
 
 import picasso.model.Pixmap;
 import picasso.util.Command;
@@ -22,6 +23,7 @@ import picasso.view.commands.Evaluator;
 public class ButtonPanel extends JPanel {
 	private Canvas myView;
 	private JTextField textField; 
+	private JTextArea textArea; 
 
 	/**
 	 * Create panel that will update the given picasso.view.
@@ -31,8 +33,9 @@ public class ButtonPanel extends JPanel {
 	public ButtonPanel(Canvas view) {
 		myView = view;
 		textField = new JTextField(20);
+		textArea = new JTextArea(); 
 		this.add(textField); 
-
+		this.add(textArea); 
 	}
 
 	/**
@@ -79,5 +82,7 @@ public class ButtonPanel extends JPanel {
 			}
 		});
 	}
-	
+	public void addExpressionHistory(String s) {
+		textArea.append(s+ "\n"); 
+	}
 }
