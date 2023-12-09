@@ -2,10 +2,11 @@ package picasso.view.commands;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.Scanner;
+import java.io.File;
 
 import picasso.model.Pixmap;
 import picasso.parser.ExpressionTreeGenerator;
+import picasso.parser.ParseException;
 import picasso.parser.language.ExpressionTreeNode;
 import picasso.util.Command;
 import picasso.view.ButtonPanel;
@@ -37,7 +38,20 @@ public class Evaluator implements Command<Pixmap> {
 
 		// create the expression to evaluate just once
 		String input = buttonpanel.getInput(); 
-		ExpressionTreeNode expr = createExpression(input);
+		ExpressionTreeNode expr = null;
+		
+		//Try to catch a parse exception and display the error message if so
+		try {
+			expr = createExpression(input);
+		}
+		catch(ParseException e){
+			//Get the user's path to the error image
+			String errorFile = System.getProperty("user.dir") +
+					File.separator +"images" + File.separator + "Error_Image.png";
+			target.read(errorFile);
+			return;//stop execution, wait for next input to run again
+		}
+		
 		// evaluate it for each pixel
 		Dimension size = target.getSize();
 		for (int imageY = 0; imageY < size.height; imageY++) {

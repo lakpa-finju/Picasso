@@ -8,6 +8,7 @@ package picasso.parser.tokens;
  * 
  * @author Robert C. Duvall
  * @author Sara Sprenkle
+ * @author Liz Kent
  *
  */
 public abstract class Token {
@@ -43,8 +44,16 @@ public abstract class Token {
 	/**
 	 * Returns true if this token represents a function, false otherwise
 	 * 
-	 * @return true iff this Token represents a function
+	 * @return true if this Token represents a function
 	 */
 	public abstract boolean isFunction();
+
+	/**
+	 * Returns false by default, but returns true if this token 
+	 * gets pushed directly onto stack. Reduces need to use instanceof 
+	 */
+	public boolean isPushedToPostfix(){
+		return false;
+	}
 
 }

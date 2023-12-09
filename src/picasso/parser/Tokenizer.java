@@ -62,7 +62,6 @@ public class Tokenizer {
 
 		tokenizer.slashSlashComments(true);
 		tokenizer.slashStarComments(true);
-		
 
 		List<Token> tokens = new ArrayList<Token>();
 
@@ -127,7 +126,7 @@ public class Tokenizer {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String expression = "sin(floor(x + y)) //+ [ -1, 1, 1] /* test */";
+		String expression = "imageWrap(\"vortex.jpg\", x, y)";
 
 		Tokenizer tokenizer = new Tokenizer();
 		System.out.println("Tokens" + tokenizer.parseTokens(expression));

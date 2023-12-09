@@ -11,4 +11,8 @@ public class AssignmentToken extends CharToken implements OperationInterface {
 	public AssignmentToken() {
 		super(CharConstants.EQUAL);
 	}
+
+	public int orderOfOperation() {
+		return 0;
+	}
 }

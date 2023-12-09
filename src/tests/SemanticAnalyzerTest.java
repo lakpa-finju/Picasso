@@ -16,7 +16,11 @@ import picasso.parser.language.expressions.*;
 import picasso.parser.tokens.*;
 import picasso.parser.tokens.functions.AbsToken;
 import picasso.parser.tokens.functions.CeilToken;
+
+import picasso.parser.tokens.functions.ImageWrapToken;
+
 import picasso.parser.tokens.functions.ClampToken;
+
 import picasso.parser.tokens.functions.SinToken;
 import picasso.parser.tokens.operations.*;
 
@@ -134,6 +138,19 @@ class SemanticAnalyzerTest {
 	}
 	
 	@Test
+	void testParseImageWrap() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new StringToken("foo.jpg"));
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new ImageWrapToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new ImageWrap(new StringToken("foo.jpg"), new X(), new Y()), actual);
+	}
+  @Test
 	void testParseSinwithY() {
 
 		Stack<Token> tokens = new Stack<>();
@@ -159,5 +176,48 @@ class SemanticAnalyzerTest {
 
 		assertEquals(new Assignment(new Variable("a"), new Addition(new X(), new Y())), actual);
 	}
+
+	@Test
+	void testParseDivision() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new DivideToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Division(new X(), new Y()), actual);
+	}
 	
+	/**
+	 * Checks to make sure division generates 
+	 * expression with correct sides.
+	 */
+	@Test
+	void testParseDivisionReverse() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new DivideToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertNotEquals(new Division(new X(), new Y()), actual);
+	}
+
+	@Test
+	void testParseModulo() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new ModToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Modulo(new X(), new Y()), actual);
+
+	}
 }

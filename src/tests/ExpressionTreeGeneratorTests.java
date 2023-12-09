@@ -12,6 +12,7 @@ import picasso.parser.ExpressionTreeGenerator;
 import picasso.parser.language.ExpressionTreeNode;
 import picasso.parser.language.expressions.*;
 import picasso.parser.tokens.IdentifierToken;
+import picasso.parser.tokens.StringToken;
 import picasso.parser.tokens.Token;
 import picasso.parser.tokens.operations.PlusToken;
 
@@ -128,4 +129,46 @@ public class ExpressionTreeGeneratorTests {
 		assertEquals(new Sin(new Addition(new X(), new Y())), e);
 
 	}
+
+	
+	@Test
+	public void imageWrapFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("imageWrap(\"foo.jpg\", x, y)");
+		StringToken stringTok = new StringToken("foo.jpg");
+		assertEquals(new ImageWrap(stringTok, new X(), new Y()), e);
+		
+		e = parser.makeExpression("imageWrap(\"vortex.jpg\", x, y)");
+		StringToken stringToken = new StringToken("vortex.jpg");
+		assertEquals(new ImageWrap(stringToken, new X(),  new Y()), e);
+				
+
+	}
+	
+	
+
+
+
+	/**
+	 * For now only tests binary operators
+	 */
+	@Test
+	public void orderOfOperationTest() {
+		//precedence 1 and 2
+		ExpressionTreeNode e = parser.makeExpression("x + y / x");
+		assertEquals(new Addition (new X(), new Division(new Y(), new X())), e);
+
+		//precedence 3 and 4
+		ExpressionTreeNode f = parser.makeExpression("x / y ^ x");
+		assertNotEquals(new Exponentiation (new Y(), new Division(new X(), new Y())), f);
+		assertEquals(new Division (new X(), new Exponentiation(new Y(), new X())), f);
+
+		//same precedence
+		ExpressionTreeNode g = parser.makeExpression("x + y - x");
+		assertEquals(new Subtraction(new Addition(new X(), new Y()), new X()), g);
+
+		//same precedence
+		ExpressionTreeNode h = parser.makeExpression("x % y * x");
+		assertEquals(new Multiplication(new Modulo(new X(), new Y()), new X()), h);
+ 	}
+
 }

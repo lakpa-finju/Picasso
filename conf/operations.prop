@@ -1,2 +1,7 @@
 +=Plus
+/=Divide
+*=Times
 \==Assignment
+%=Mod
+-=Minus
+^=Exponentiate
