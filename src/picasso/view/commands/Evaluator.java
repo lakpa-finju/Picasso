@@ -2,7 +2,7 @@ package picasso.view.commands;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.Scanner;
+import java.io.File;
 
 import picasso.model.Pixmap;
 import picasso.parser.ExpressionTreeGenerator;
@@ -52,8 +52,9 @@ public class Evaluator implements Command<Pixmap> {
 			}
 		}
 		catch(ParseException e){
+			//Get the user's path to the error image
 			String errorFile = System.getProperty("user.dir") +
-					"\\images\\Error_Input.png";
+					File.separator +"images" + File.separator + "Error_Image.png";
 			target.read(errorFile);
 			return;//stop execution, wait for next input to run again
 		}
