@@ -18,10 +18,11 @@ import picasso.parser.tokens.functions.AbsToken;
 import picasso.parser.tokens.functions.CeilToken;
 
 import picasso.parser.tokens.functions.ImageWrapToken;
-
+import picasso.parser.tokens.functions.RgbToYCrCbToken;
 import picasso.parser.tokens.functions.ClampToken;
 
 import picasso.parser.tokens.functions.SinToken;
+import picasso.parser.tokens.functions.YCrCbToRGBToken;
 import picasso.parser.tokens.operations.*;
 
 /**
@@ -220,4 +221,29 @@ class SemanticAnalyzerTest {
 		assertEquals(new Modulo(new X(), new Y()), actual);
 
 	}
+	
+	@Test
+	void testParseYCrCbToRGB() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new YCrCbToRGBToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new yCrCbToRGB(new X()), actual);
+	}
+	
+	@Test
+	void testParseRgbToYCrCb() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new RgbToYCrCbToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new rgbToYCrCb(new X()), actual);
+	}
+	
 }

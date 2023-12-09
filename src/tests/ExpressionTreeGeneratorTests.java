@@ -129,6 +129,25 @@ public class ExpressionTreeGeneratorTests {
 		assertEquals(new Sin(new Addition(new X(), new Y())), e);
 
 	}
+	
+	@Test
+	public void rgbToYCrCbFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("rgbToYCrCb(x)");
+		assertEquals(new rgbToYCrCb(new X()), e);
+
+		e = parser.makeExpression("rgbToYCrCb( x + y )");
+		assertEquals(new rgbToYCrCb(new Addition(new X(), new Y())), e);
+
+	}
+	
+	@Test
+	public void yCrCbToRGBFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("yCrCbToRGB(x)");
+		assertEquals(new yCrCbToRGB(new X()), e);
+
+		e = parser.makeExpression("yCrCbToRGB( x + y )");
+		assertEquals(new yCrCbToRGB(new Addition(new X(), new Y())), e);
+	}
 
 	
 	@Test
