@@ -10,6 +10,7 @@ import java.awt.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import picasso.model.ImprovedNoise;
 import picasso.parser.WrapAnalyzer;
 import picasso.parser.language.ExpressionTreeNode;
 import picasso.parser.language.expressions.*;
@@ -377,6 +378,39 @@ public class EvaluatorTests {
 					myTree.evaluate(testVal, testVal));
 		}
 	}
-	
+	@Test
+	public void testPerlinColorEvaluation() { 
+		PerlinColor myTree = new PerlinColor(new X(), new Y()); 
+		
+		// test the ints; remember that x's value doesn't matter
 
+		double[] tests = { -.7, -.00001, .000001, .5 };
+
+		for (double testVal : tests) {
+			double testValred = ImprovedNoise.noise( testVal+ 0.3, testVal + 0.3, 0);
+			double testValgreen = ImprovedNoise.noise(testVal - 0.8, testVal - 0.8, 0);
+			double testValblue = ImprovedNoise.noise(testVal + 0.1, testVal + 0.1, 0);
+			
+			assertEquals(new RGBColor(testValred, testValgreen, testValblue),
+					myTree.evaluate(testVal, testVal));
+		}
+	}
+	
+	@Test
+	public void testPerlinBWEvaluation() { 
+		PerlinBW myTree = new PerlinBW(new X(), new Y()); 
+		
+		// test the ints; remember that x's value doesn't matter
+
+		double[] tests = { -.7, -.00001, .000001, .5 };
+
+		for (double testVal : tests) {
+			double testValgrey = ImprovedNoise.noise(testVal + testVal, testVal + testVal,
+					testVal + testVal);
+			
+			assertEquals(new RGBColor(testValgrey, testValgrey, testValgrey),
+					myTree.evaluate(testVal, testVal));
+		}
+	}
+	
 }

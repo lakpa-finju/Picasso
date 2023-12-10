@@ -169,11 +169,28 @@ public class ExpressionTreeGeneratorTests {
 		assertEquals(new Wrap(new X()), e);
 		
 		e = parser.makeExpression("wrap(x+x)");
-		assertEquals(new Wrap(new Addition(new X(), new X())), e);
-				
+		assertEquals(new Wrap(new Addition(new X(), new X())), e);		
 
 	}
 	
+	@Test
+	public void perlinColorFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("perlinColor(x,y)");
+		assertEquals(new PerlinColor(new X(), new Y()), e);
+
+		e = parser.makeExpression("perlinColor( x + y, x + y )");
+		assertEquals(new PerlinColor(new Addition(new X(), new Y()),new Addition(new X(), new Y()) ), e);
+
+	}
+	
+	@Test
+	public void perlinBWFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("perlinBW(x,y)");
+		assertEquals(new PerlinBW(new X(), new Y()), e);
+
+		e = parser.makeExpression("perlinBW( x + y, x + y )");
+		assertEquals(new PerlinBW(new Addition(new X(), new Y()),new Addition(new X(), new Y()) ), e);
+	}
 
 	/**
 	 * For now only tests binary operators

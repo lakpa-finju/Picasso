@@ -29,4 +29,39 @@ public class PerlinColor extends ExpressionTreeNode {
 		return new RGBColor(red, green, blue);
 		
 	}
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+
+		if (!(o instanceof PerlinColor)) {
+			return false;
+		}
+
+		// Make sure the objects are the same type
+		if (o.getClass() != this.getClass()) {
+			return false;
+		}
+
+		PerlinColor other = (PerlinColor) o;
+		if (!other.left.equals(this.left)) {
+			return false;
+		}
+
+		if (!other.right.equals(this.right)) {
+			return false;
+		}
+
+		return true;
+
+	}
+	@Override
+    public String toString(){
+        StringBuilder str = new StringBuilder("perlinColor("); 
+        str.append(left); 
+        str.append(","); 
+        str.append(right + ")");
+        return str.toString(); 
+    }
 }
