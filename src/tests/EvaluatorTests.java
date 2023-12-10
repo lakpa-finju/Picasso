@@ -400,14 +400,13 @@ public class EvaluatorTests {
 	public void testPerlinBWEvaluation() { 
 		PerlinBW myTree = new PerlinBW(new X(), new Y()); 
 		
-		// test the ints; remember that x's value doesn't matter
 
 		double[] tests = { -.7, -.00001, .000001, .5 };
 
 		for (double testVal : tests) {
 			double testValgrey = ImprovedNoise.noise(testVal + testVal, testVal + testVal,
 					testVal + testVal);
-			
+		
 			assertEquals(new RGBColor(testValgrey, testValgrey, testValgrey),
 					myTree.evaluate(testVal, testVal));
 		}

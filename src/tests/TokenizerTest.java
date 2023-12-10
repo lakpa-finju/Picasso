@@ -26,7 +26,7 @@ import picasso.parser.tokens.operations.ModToken;
 
 /**
  * Tests that the tokenizer tokens as expected. 
- * @author Sara Sprenkle
+ * @author Sara Sprenkle & Wizards team
  */
 public class TokenizerTest {
 
