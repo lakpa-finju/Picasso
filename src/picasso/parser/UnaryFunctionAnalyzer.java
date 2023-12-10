@@ -11,7 +11,6 @@ import picasso.parser.tokens.Token;
  * XXX: Not sure if this class is necessary.
  * 
  * @author Sara Sprenkle
- * 
  */
 public abstract class UnaryFunctionAnalyzer implements SemanticAnalyzerInterface {
 
