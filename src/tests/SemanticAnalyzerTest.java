@@ -274,7 +274,6 @@ class SemanticAnalyzerTest {
 		assertEquals(new PerlinColor(new X(), new Y()), actual);
 	}
 	
-	
 	@Test
 	void testParsePerlinBW() {
 

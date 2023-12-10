@@ -396,6 +396,7 @@ public class EvaluatorTests {
 		}
 	}
 	
+	
 	@Test
 	public void testPerlinBWEvaluation() { 
 		PerlinBW myTree = new PerlinBW(new X(), new Y()); 

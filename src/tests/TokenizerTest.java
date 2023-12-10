@@ -290,6 +290,7 @@ public class TokenizerTest {
 		assertEquals(new RightParenToken(), tokens.get(5));
 	}
 	
+	
 	@Test
 	public void testTokenizePerlinBW() {
 		String expression = "perlinBW(x,y)";

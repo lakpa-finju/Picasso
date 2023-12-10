@@ -183,7 +183,6 @@ public class ExpressionTreeGeneratorTests {
 
 	}
 	
-	
 	@Test
 	public void perlinBWFunctionTests() {
 		ExpressionTreeNode e = parser.makeExpression("perlinBW(x,y)");
