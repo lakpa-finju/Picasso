@@ -3,7 +3,7 @@ package picasso.parser.language.expressions;
 import picasso.parser.language.ExpressionTreeNode;
 
 /**
- * Represents the abs function in the Picasso language.
+ * Represents the yCrCbToRGB function in the Picasso language.
  * 
  * @author Linh Nguyen
  *
