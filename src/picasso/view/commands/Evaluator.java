@@ -50,9 +50,16 @@ public class Evaluator implements Command<Pixmap> {
 			if (expr != null) {
 				historypanel.addExpressionHistory(input); 
 			}
+			else {
+				//Show error message
+				String errorFile = System.getProperty("user.dir") +
+						File.separator +"images" + File.separator + "Error_Image.png";
+				target.read(errorFile);
+				return;
+			}
 		}
 		catch(ParseException e){
-			//Get the user's path to the error image
+			//Show error message
 			String errorFile = System.getProperty("user.dir") +
 					File.separator +"images" + File.separator + "Error_Image.png";
 			target.read(errorFile);
