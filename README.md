@@ -41,4 +41,4 @@ This extension allows user to view multiple images at once across tab. The exten
 ### View history
 This extension allows user to see the list of the expression they entered in the program. The extension uses JTextArea, JScrollPane, and JPanel. If the expression is incorrect, it will not be saved to the history. 
 1. Type the expression in the text field as usual
-2. Hit "evaluate", and the expression will be automatically saved to the history panel on the right side
+2. Hit "evaluate", and the expression will be automatically saved to the history panel on the right side. 
