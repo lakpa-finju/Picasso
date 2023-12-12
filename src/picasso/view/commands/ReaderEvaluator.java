@@ -52,6 +52,22 @@ public class ReaderEvaluator extends FileCommand<Pixmap> implements Command<Pixm
 				ExpressionTreeNode expr = null;
 				while ((st = br.readLine()) != null) {
 					expr = createExpression(st);
+					
+					/*
+					try {
+						System.out.println("try");
+						expr = createExpression(st);//results in null
+						System.out.println(expr);
+						System.out.println(st);
+					}
+					catch (ParseException e) {
+						System.out.println("catch");
+						//Show error
+						ErrorHandler.displayError(target);
+						br.close();
+						return;//stop execution, wait for next input to run again
+					}
+					*/
 					if (expr != null) {
 						System.out.println("expr != null");
 						Dimension size = target.getSize();
