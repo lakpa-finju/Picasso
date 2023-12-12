@@ -7,6 +7,7 @@ import java.util.Scanner;
 import picasso.model.Pixmap;
 import picasso.parser.ExpressionTreeGenerator;
 import picasso.parser.language.ExpressionTreeNode;
+import picasso.parser.ParseException;
 import picasso.util.Command;
 import picasso.view.ButtonPanel;
 import javax.swing.JFileChooser;
@@ -37,6 +38,7 @@ public class ReaderEvaluator extends FileCommand<Pixmap> implements Command<Pixm
 	/**
 	 * Evaluate an expression for each point in the image.
 	 */
+	//for merge
 	public void execute(Pixmap target) {
 
 		// take the input from the file 
@@ -47,9 +49,28 @@ public class ReaderEvaluator extends FileCommand<Pixmap> implements Command<Pixm
 			try {
 				br = new BufferedReader(new FileReader(file));
 				String st; 
+				//ExpressionTreeNode expr = null;
 				while ((st = br.readLine()) != null) {
 					ExpressionTreeNode expr = createExpression(st);
+					
+					/*
+					 * Error handling
+					try {
+						System.out.println("try");
+						expr = createExpression(st);//results in null
+						System.out.println(expr);
+						System.out.println(st);
+					}
+					catch (ParseException e) {
+						System.out.println("catch");
+						//Show error
+						ErrorHandler.displayError(target);
+						br.close();
+						return;//stop execution, wait for next input to run again
+					}
+					*/
 					if (expr != null) {
+						System.out.println("expr != null");
 						Dimension size = target.getSize();
 						for (int imageY = 0; imageY < size.height; imageY++) {
 							double evalY = imageToDomainScale(imageY, size.height);
