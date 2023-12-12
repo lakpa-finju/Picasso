@@ -20,6 +20,7 @@ import picasso.view.commands.Evaluator;
  * image.
  * 
  * @author Robert C Duvall
+ * @author lakpafinjusherpa
  */
 @SuppressWarnings("serial")
 public class ButtonPanel extends JPanel {
