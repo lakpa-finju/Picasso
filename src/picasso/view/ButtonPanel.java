@@ -1,10 +1,13 @@
 package picasso.view;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JTextField;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.*;
 
 import picasso.model.Pixmap;
 import picasso.util.Command;
@@ -17,11 +20,13 @@ import picasso.view.commands.Evaluator;
  * image.
  * 
  * @author Robert C Duvall
+ * @author lakpafinjusherpa
  */
 @SuppressWarnings("serial")
 public class ButtonPanel extends JPanel {
 	private Canvas myView;
-	private JTextField textField; 
+	private JTextField textField;
+	private JTextArea textArea;
 
 	/**
 	 * Create panel that will update the given picasso.view.
@@ -31,8 +36,9 @@ public class ButtonPanel extends JPanel {
 	public ButtonPanel(Canvas view) {
 		myView = view;
 		textField = new JTextField(20);
-		this.add(textField); 
-
+		textArea = new JTextArea();
+		this.add(textField);
+		this.add(textArea);
 	}
 
 	/**
@@ -54,6 +60,45 @@ public class ButtonPanel extends JPanel {
 	}
 
 	/**
+	 * Add the given Command as a button with the given button text. When the button
+	 * is clicked, the action listener updates the tab panel with new images selected.
+	 * 
+	 * @param buttonText the text for the button
+	 * @param frame Java Frame object from parent class 
+	 * @param tabPanel JtabbedPane object for adding new tab images
+	 * @param size Dimension object for defining the size of each tab images
+	 */
+	public void add(String buttonText, Frame frame, JTabbedPane tabPanel, Dimension size) {
+		JButton button = new JButton(buttonText);
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// only one dialog box needed for an application
+				final JFileChooser ourChooser = new JFileChooser(System.getProperties().getProperty("user.dir"));
+
+				ourChooser.setDialogType(JFileChooser.OPEN_DIALOG);
+				ourChooser.setMultiSelectionEnabled(true);
+				int response = ourChooser.showDialog(null, null);
+				if (response == JFileChooser.APPROVE_OPTION) {
+					File[] files = ourChooser.getSelectedFiles();
+					for (File file : files) {
+						Canvas canva = new Canvas(frame, file.getPath());
+						canva.setSize(size);
+						JPanel page1 = new JPanel();
+						page1.add("tab", canva);
+						String[] bits = file.getPath().split(File.separator);
+						tabPanel.addTab(bits[bits.length - 1], page1);
+						frame.add(tabPanel);
+
+					}
+				}
+			}
+
+		});
+		add(button);
+	}
+
+	/**
 	 * Add the given Command as a button. The button's text will be the given
 	 * command's name.
 	 * 
@@ -65,12 +110,13 @@ public class ButtonPanel extends JPanel {
 
 	/**
 	 * Returns the input text from the text box
-	 * @return the input text from the text box 
+	 * 
+	 * @return the input text from the text box
 	 */
 	public String getInput() {
-		return textField.getText(); 
+		return textField.getText();
 	}
-	
+
 	public void enterToEvaluate(ThreadedCommand<Pixmap> evalutorAction) {
 		textField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -79,5 +125,8 @@ public class ButtonPanel extends JPanel {
 			}
 		});
 	}
-	
+
+	public void addExpressionHistory(String s) {
+		textArea.append(s + "\n");
+	}
 }

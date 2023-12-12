@@ -36,12 +36,14 @@ public class CharTokenFactory {
 		tokenList[CharConstants.EQUAL] = new AssignmentToken();
 		tokenList[CharConstants.COMMA] = new CommaToken();
 		tokenList[CharConstants.PLUS] = new PlusToken();
+		tokenList[CharConstants.QUOTE] = new QuoteToken();
 		tokenList[CharConstants.SLASH] = new DivideToken();
 		tokenList[CharConstants.STAR] = new TimesToken();
 		tokenList[CharConstants.CARET] = new ExponentiateToken();
 		tokenList[CharConstants.MOD] = new ModToken();
 		tokenList[CharConstants.STAR] = new TimesToken();
 		tokenList[CharConstants.MINUS] = new MinusToken();
+		tokenList[CharConstants.BANG] = new NegateToken();
 
 
 

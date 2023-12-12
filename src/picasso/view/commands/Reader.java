@@ -1,6 +1,9 @@
 package picasso.view.commands;
 
+import java.io.File;
+
 import javax.swing.JFileChooser;
+
 
 import picasso.model.Pixmap;
 import picasso.util.FileCommand;
@@ -27,16 +30,17 @@ public class Reader extends FileCommand<Pixmap> {
 	 * message will be displayed instead.
 	 */
 	public void execute(Pixmap target) {
-		//Called when you press open image or open expression
 		String fileName = getFileName();
 		if (fileName != null) {
 			String suffix = fileName.substring(fileName.lastIndexOf("."));
 			if (suffix.equals(".png") || suffix.equals(".jpg")) {
 				target.read(fileName);
+				target.setSize(600, 600);
 			}
 			else {
+				//get user's path to the error image
 				String errorFile = System.getProperty("user.dir") +
-						"\\images\\Error_Image.png";
+						File.separator +"images" + File.separator + "Error_Image.png";
 				target.read(errorFile);
 			}
 		}

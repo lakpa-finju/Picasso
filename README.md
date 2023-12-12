@@ -28,3 +28,12 @@ The `images` directory contains some sample images generated from Picasso.  Some
 ## Code Base History
 
 This code base originated as a project in a course at Duke University.  The professors realized that the code could be designed better and refactored.  This code base has some code leftover from the original version.
+
+## Extension 
+
+# multiple image view
+This extension allows user to view multiple images at once across tab. The extension utilizes Jtabbed pane and Jpanel. To use this extensino the user should do the following in order.
+1. Click on `multi images`, once file chooser has been opened, click on `images` directory. 
+2. Select multiple images that you like to open. 
+3. Click `open` or press enter
+4. Selected images will be opened in different tabs. 

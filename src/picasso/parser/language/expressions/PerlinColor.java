@@ -1,16 +1,13 @@
 package picasso.parser.language.expressions;
 
+import picasso.model.ImprovedNoise;
 import picasso.parser.language.ExpressionTreeNode;
 
-/**
- * Represents addition class in the picasso language
- * @author lakpafinjusherpa
- */
-public class Addition extends ExpressionTreeNode {
+public class PerlinColor extends ExpressionTreeNode {
 	ExpressionTreeNode left;
 	ExpressionTreeNode right;
 
-	public Addition(ExpressionTreeNode left, ExpressionTreeNode right) {
+	public PerlinColor(ExpressionTreeNode left, ExpressionTreeNode right) {
 		this.left = left;
 		this.right = right;
 	}
@@ -25,20 +22,20 @@ public class Addition extends ExpressionTreeNode {
 	public RGBColor evaluate(double x, double y) {
 		RGBColor leftResult = left.evaluate(x, y);
 		RGBColor rightResult = right.evaluate(x, y);
-		double red = leftResult.getRed() + rightResult.getRed();
-		double green = leftResult.getGreen() + rightResult.getGreen();
-		double blue = leftResult.getBlue() + rightResult.getBlue();
-
+		
+		double red = ImprovedNoise.noise(leftResult.getRed() + 0.3, rightResult.getRed() + 0.3, 0);
+		double blue = ImprovedNoise.noise(leftResult.getBlue() + 0.1, rightResult.getBlue() + 0.1, 0);
+		double green = ImprovedNoise.noise(leftResult.getGreen() - 0.8, rightResult.getGreen() - 0.8, 0);
 		return new RGBColor(red, green, blue);
+		
 	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (o == this) {
 			return true;
 		}
 
-		if (!(o instanceof Addition)) {
+		if (!(o instanceof PerlinColor)) {
 			return false;
 		}
 
@@ -47,7 +44,7 @@ public class Addition extends ExpressionTreeNode {
 			return false;
 		}
 
-		Addition other = (Addition) o;
+		PerlinColor other = (PerlinColor) o;
 		if (!other.left.equals(this.left)) {
 			return false;
 		}
@@ -61,11 +58,10 @@ public class Addition extends ExpressionTreeNode {
 	}
 	@Override
     public String toString(){
-        StringBuilder str = new StringBuilder(""); 
+        StringBuilder str = new StringBuilder("perlinColor("); 
         str.append(left); 
-        str.append(" + "); 
-        str.append(right);
+        str.append(","); 
+        str.append(right + ")");
         return str.toString(); 
     }
-
 }

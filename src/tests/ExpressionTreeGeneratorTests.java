@@ -12,6 +12,7 @@ import picasso.parser.ExpressionTreeGenerator;
 import picasso.parser.language.ExpressionTreeNode;
 import picasso.parser.language.expressions.*;
 import picasso.parser.tokens.IdentifierToken;
+import picasso.parser.tokens.StringToken;
 import picasso.parser.tokens.Token;
 import picasso.parser.tokens.operations.PlusToken;
 
@@ -128,6 +129,68 @@ public class ExpressionTreeGeneratorTests {
 		assertEquals(new Sin(new Addition(new X(), new Y())), e);
 
 	}
+	
+	@Test
+	public void rgbToYCrCbFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("rgbToYCrCb(x)");
+		assertEquals(new rgbToYCrCb(new X()), e);
+
+		e = parser.makeExpression("rgbToYCrCb( x + y )");
+		assertEquals(new rgbToYCrCb(new Addition(new X(), new Y())), e);
+
+	}
+	
+	@Test
+	public void yCrCbToRGBFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("yCrCbToRGB(x)");
+		assertEquals(new yCrCbToRGB(new X()), e);
+
+		e = parser.makeExpression("yCrCbToRGB( x + y )");
+		assertEquals(new yCrCbToRGB(new Addition(new X(), new Y())), e);
+	}
+
+	
+	@Test
+	public void imageWrapFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("imageWrap(\"foo.jpg\", x, y)");
+		StringToken stringTok = new StringToken("foo.jpg");
+		assertEquals(new ImageWrap(stringTok, new X(), new Y()), e);
+		
+		e = parser.makeExpression("imageWrap(\"vortex.jpg\", x, y)");
+		StringToken stringToken = new StringToken("vortex.jpg");
+		assertEquals(new ImageWrap(stringToken, new X(),  new Y()), e);
+				
+
+	}
+	
+	@Test
+	public void wrapFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("wrap(x)");
+		assertEquals(new Wrap(new X()), e);
+		
+		e = parser.makeExpression("wrap(x+x)");
+		assertEquals(new Wrap(new Addition(new X(), new X())), e);		
+
+	}
+	
+	@Test
+	public void perlinColorFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("perlinColor(x,y)");
+		assertEquals(new PerlinColor(new X(), new Y()), e);
+
+		e = parser.makeExpression("perlinColor( x + y, x + y )");
+		assertEquals(new PerlinColor(new Addition(new X(), new Y()),new Addition(new X(), new Y()) ), e);
+
+	}
+	
+	@Test
+	public void perlinBWFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("perlinBW(x,y)");
+		assertEquals(new PerlinBW(new X(), new Y()), e);
+
+		e = parser.makeExpression("perlinBW( x + y, x + y )");
+		assertEquals(new PerlinBW(new Addition(new X(), new Y()),new Addition(new X(), new Y()) ), e);
+	}
 
 	/**
 	 * For now only tests binary operators
@@ -151,4 +214,5 @@ public class ExpressionTreeGeneratorTests {
 		ExpressionTreeNode h = parser.makeExpression("x % y * x");
 		assertEquals(new Multiplication(new Modulo(new X(), new Y()), new X()), h);
  	}
+
 }

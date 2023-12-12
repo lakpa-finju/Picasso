@@ -16,8 +16,16 @@ import picasso.parser.language.expressions.*;
 import picasso.parser.tokens.*;
 import picasso.parser.tokens.functions.AbsToken;
 import picasso.parser.tokens.functions.CeilToken;
+
+import picasso.parser.tokens.functions.ImageWrapToken;
+import picasso.parser.tokens.functions.PerlinBWToken;
+import picasso.parser.tokens.functions.PerlinColorToken;
+import picasso.parser.tokens.functions.RgbToYCrCbToken;
 import picasso.parser.tokens.functions.ClampToken;
+
 import picasso.parser.tokens.functions.SinToken;
+import picasso.parser.tokens.functions.WrapToken;
+import picasso.parser.tokens.functions.YCrCbToRGBToken;
 import picasso.parser.tokens.operations.*;
 
 /**
@@ -134,6 +142,19 @@ class SemanticAnalyzerTest {
 	}
 	
 	@Test
+	void testParseImageWrap() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new StringToken("foo.jpg"));
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new ImageWrapToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new ImageWrap(new StringToken("foo.jpg"), new X(), new Y()), actual);
+	}
+  @Test
 	void testParseSinwithY() {
 
 		Stack<Token> tokens = new Stack<>();
@@ -201,5 +222,68 @@ class SemanticAnalyzerTest {
 		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
 
 		assertEquals(new Modulo(new X(), new Y()), actual);
+
+	}
+	
+	@Test
+	void testParseWrap() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new WrapToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Wrap(new X()), actual);
+
+	}
+  @Test
+	void testParseYCrCbToRGB() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new YCrCbToRGBToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new yCrCbToRGB(new X()), actual);
+	}
+	
+	@Test
+	void testParseRgbToYCrCb() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new RgbToYCrCbToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new rgbToYCrCb(new X()), actual);
+	}
+	
+	@Test
+	void testParsePerlinColor() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new PerlinColorToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new PerlinColor(new X(), new Y()), actual);
+	}
+	
+	@Test
+	void testParsePerlinBW() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new IdentifierToken("y"));
+		tokens.push(new PerlinBWToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new PerlinBW(new X(), new Y()), actual);
 	}
 }

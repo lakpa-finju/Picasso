@@ -1,16 +1,13 @@
 package picasso.parser.language.expressions;
 
+import picasso.model.ImprovedNoise;
 import picasso.parser.language.ExpressionTreeNode;
 
-/**
- * Represents addition class in the picasso language
- * @author lakpafinjusherpa
- */
-public class Addition extends ExpressionTreeNode {
+public class PerlinBW extends ExpressionTreeNode {
 	ExpressionTreeNode left;
 	ExpressionTreeNode right;
 
-	public Addition(ExpressionTreeNode left, ExpressionTreeNode right) {
+	public PerlinBW(ExpressionTreeNode left, ExpressionTreeNode right) {
 		this.left = left;
 		this.right = right;
 	}
@@ -25,20 +22,19 @@ public class Addition extends ExpressionTreeNode {
 	public RGBColor evaluate(double x, double y) {
 		RGBColor leftResult = left.evaluate(x, y);
 		RGBColor rightResult = right.evaluate(x, y);
-		double red = leftResult.getRed() + rightResult.getRed();
-		double green = leftResult.getGreen() + rightResult.getGreen();
-		double blue = leftResult.getBlue() + rightResult.getBlue();
 
-		return new RGBColor(red, green, blue);
+		double grey = ImprovedNoise.noise(leftResult.getRed() + rightResult.getRed(), leftResult.getGreen() + rightResult.getGreen(),
+				leftResult.getBlue() + rightResult.getBlue());
+		return new RGBColor(grey, grey, grey);
+		
 	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (o == this) {
 			return true;
 		}
 
-		if (!(o instanceof Addition)) {
+		if (!(o instanceof PerlinBW)) {
 			return false;
 		}
 
@@ -47,7 +43,7 @@ public class Addition extends ExpressionTreeNode {
 			return false;
 		}
 
-		Addition other = (Addition) o;
+		PerlinBW other = (PerlinBW) o;
 		if (!other.left.equals(this.left)) {
 			return false;
 		}
@@ -61,11 +57,10 @@ public class Addition extends ExpressionTreeNode {
 	}
 	@Override
     public String toString(){
-        StringBuilder str = new StringBuilder(""); 
+        StringBuilder str = new StringBuilder("perlinBW("); 
         str.append(left); 
-        str.append(" + "); 
-        str.append(right);
+        str.append(","); 
+        str.append(right + ")");
         return str.toString(); 
     }
-
 }
