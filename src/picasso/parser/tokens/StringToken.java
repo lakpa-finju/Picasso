@@ -4,7 +4,8 @@
 package picasso.parser.tokens;
 
 /**
- * 
+ * Represents String token in the picasso language
+ * @author lakpafinjusherpa
  */
 public class StringToken extends Token{
 

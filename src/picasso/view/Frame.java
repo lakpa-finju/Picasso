@@ -25,6 +25,7 @@ import picasso.view.commands.*;
  * Main container for the Picasso application
  *
  * @author Robert Duvall (rcd@cs.duke.edu)
+ * @author lakpafinjusherpa
  * 
  */
 @SuppressWarnings("serial")

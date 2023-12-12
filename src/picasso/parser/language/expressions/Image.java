@@ -14,6 +14,7 @@ import picasso.parser.language.ExpressionTreeNode;
 
 /**
  * This class represents String class in Picasso
+ * @author lakpafinjusherpa
  */
 public class Image extends ExpressionTreeNode {
 
