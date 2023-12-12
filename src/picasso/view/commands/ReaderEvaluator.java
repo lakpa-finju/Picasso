@@ -49,11 +49,12 @@ public class ReaderEvaluator extends FileCommand<Pixmap> implements Command<Pixm
 			try {
 				br = new BufferedReader(new FileReader(file));
 				String st; 
-				ExpressionTreeNode expr = null;
+				//ExpressionTreeNode expr = null;
 				while ((st = br.readLine()) != null) {
-					expr = createExpression(st);
+					ExpressionTreeNode expr = createExpression(st);
 					
 					/*
+					 * Error handling
 					try {
 						System.out.println("try");
 						expr = createExpression(st);//results in null
