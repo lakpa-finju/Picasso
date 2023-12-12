@@ -38,6 +38,7 @@ public class ReaderEvaluator extends FileCommand<Pixmap> implements Command<Pixm
 	/**
 	 * Evaluate an expression for each point in the image.
 	 */
+	//for merge
 	public void execute(Pixmap target) {
 
 		// take the input from the file 
