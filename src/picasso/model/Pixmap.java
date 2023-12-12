@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
 import javax.imageio.*;
+import picasso.view.commands.ErrorHandler;
 
 /**
  * Class for manipulating graphics images, originally developed in C++.
@@ -179,7 +180,10 @@ public class Pixmap {
 			myImage = ImageIO.read(new File(myFileName));
 			mySize = new Dimension(myImage.getWidth(), myImage.getHeight());
 		} catch (IOException e) {
-			e.printStackTrace();
+			ErrorHandler.displayImageError(this);
+		}
+		catch (NullPointerException e) {
+			ErrorHandler.displayImageError(this);
 		}
 	}
 
@@ -204,6 +208,11 @@ public class Pixmap {
 		myFileName = DEFAULT_NAME;
 		myImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		mySize = new Dimension(width, height);
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < width; j++) {
+				setColor(i, j, color);
+			}
+		}
 	}
 
 	private BufferedImage copyImage(Dimension from, Dimension to, BufferedImage original) {

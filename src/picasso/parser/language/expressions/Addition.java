@@ -2,6 +2,10 @@ package picasso.parser.language.expressions;
 
 import picasso.parser.language.ExpressionTreeNode;
 
+/**
+ * Represents addition class in the picasso language
+ * @author lakpafinjusherpa
+ */
 public class Addition extends ExpressionTreeNode {
 	ExpressionTreeNode left;
 	ExpressionTreeNode right;
