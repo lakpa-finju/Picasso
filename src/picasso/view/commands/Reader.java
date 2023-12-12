@@ -35,6 +35,7 @@ public class Reader extends FileCommand<Pixmap> {
 			String suffix = fileName.substring(fileName.lastIndexOf("."));
 			if (suffix.equals(".png") || suffix.equals(".jpg")) {
 				target.read(fileName);
+				target.setSize(600, 600);
 			}
 			else {
 				//get user's path to the error image
