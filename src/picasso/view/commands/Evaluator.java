@@ -52,13 +52,13 @@ public class Evaluator implements Command<Pixmap> {
 			}
 			else {
 				//Show error message and stop execution
-				ErrorHandler.displayError(target);
+				ErrorHandler.displayInputError(target);
 				return;
 			}
 		}
 		catch(ParseException e){
 			//Show error message and stop execution
-			ErrorHandler.displayError(target);
+			ErrorHandler.displayInputError(target);
 			return;
 		}
 		

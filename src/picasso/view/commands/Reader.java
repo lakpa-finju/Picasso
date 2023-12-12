@@ -38,7 +38,7 @@ public class Reader extends FileCommand<Pixmap> {
 			}
 			else {
 				//get user's path to the error image
-				ErrorHandler.displayError(target);
+				ErrorHandler.displayImageError(target);
 			}
 		}
 		
