@@ -10,7 +10,7 @@ import picasso.parser.language.math.Wrapper;
  */
 public class Mandelbrot extends NoArgumentFunction{
 	
-	protected static final int MAX_ITER = 120;
+	protected static final int MAX_ITER = 500;
 	/**
 	 * Constructs the mandelbrot function
 	 */
