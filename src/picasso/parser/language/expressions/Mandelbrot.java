@@ -1,20 +1,30 @@
 package picasso.parser.language.expressions;
 
-import picasso.parser.language.ExpressionTreeNode;
+import picasso.parser.language.math.ComplexNumber;
+import picasso.parser.language.math.Wrapper;
 
 /**
  * This class represents the sine function for Picasso evaluations.
  * 
  * @author Liz Kent
  */
-public class Mandelbrot extends UnaryFunction {
+public class Mandelbrot extends NoArgumentFunction{
 	
+	protected static final int MAX_ITER = 120;
 	/**
-	 * Constructs the sine function with the given expression as a parameter
-	 * @param param - the given expression
+	 * Constructs the mandelbrot function
 	 */
-	public Mandelbrot(ExpressionTreeNode param) {
-		super(param);
+	public Mandelbrot() {
+	}
+
+	public static int mandelbrot(ComplexNumber c){
+		ComplexNumber z = new ComplexNumber(0, 0);
+		int i = 0;
+		while(((z.abs()) <= 2.0) && (i < MAX_ITER) ){
+			z = z.squared().plus(c);
+			i++;
+		}
+		return i;
 	}
 	
 	/**
@@ -26,12 +36,18 @@ public class Mandelbrot extends UnaryFunction {
 	 * @return the evaluated RGBColor
 	 */
 	public RGBColor evaluate(double x, double y) {
-		RGBColor result = param.evaluate(x, y);
+		
+		ComplexNumber c =  new ComplexNumber(x, y);
+		int result = mandelbrot(c);
+		if (result == MAX_ITER){
+			return new RGBColor(-1, -1, -1);
+		}
+		else{
+			double color = Wrapper.wrap(result, -1, 1);
+			return new RGBColor(color, color, color);
+		}
 
-		double red = Math.sin(result.getRed());
-		double green = Math.sin(result.getGreen());
-		double blue = Math.sin(result.getBlue());
 
-		return new RGBColor(red, green, blue);
 	}
+
 }
