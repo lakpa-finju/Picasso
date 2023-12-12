@@ -26,7 +26,7 @@ import picasso.parser.tokens.operations.ModToken;
 
 /**
  * Tests that the tokenizer tokens as expected. 
- * @author Sara Sprenkle
+ * @author Sara Sprenkle & Wizards team
  */
 public class TokenizerTest {
 
@@ -258,8 +258,50 @@ public class TokenizerTest {
 		assertEquals(new ModToken(), tokens.get(1));
 		assertEquals(new IdentifierToken("y"), tokens.get(2));
 	}
+	@Test
+	public void testTokenizeBasicFunctionRgbToYCrCb() {
+		String expression = "rgbToYCrCb(x)";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new RgbToYCrCbToken(), tokens.get(0));
+		assertEquals(new LeftParenToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("x"), tokens.get(2));
+		assertEquals(new RightParenToken(), tokens.get(3));
+	}
 	
-
-	// TODO: Test arithmetic (rather than function-based) expressions ...
-
+	@Test
+	public void testTokenizeBasicFunctionYCrCbToRGB() {
+		String expression = "yCrCbToRGB(x)";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new YCrCbToRGBToken(), tokens.get(0));
+		assertEquals(new LeftParenToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("x"), tokens.get(2));
+		assertEquals(new RightParenToken(), tokens.get(3));
+	}
+	
+	@Test
+	public void testTokenizePerlinColor() {
+		String expression = "perlinColor(x,y)";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new PerlinColorToken(), tokens.get(0));
+		assertEquals(new LeftParenToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("x"), tokens.get(2));
+		assertEquals(new CommaToken(), tokens.get(3));
+		assertEquals(new IdentifierToken("y"), tokens.get(4));
+		assertEquals(new RightParenToken(), tokens.get(5));
+	}
+	
+	
+	@Test
+	public void testTokenizePerlinBW() {
+		String expression = "perlinBW(x,y)";
+		tokens = tokenizer.parseTokens(expression);
+		assertEquals(new PerlinBWToken(), tokens.get(0));
+		assertEquals(new LeftParenToken(), tokens.get(1));
+		assertEquals(new IdentifierToken("x"), tokens.get(2));
+		assertEquals(new CommaToken(), tokens.get(3));
+		assertEquals(new IdentifierToken("y"), tokens.get(4));
+		assertEquals(new RightParenToken(), tokens.get(5));
+	}
+	
+	
 }
