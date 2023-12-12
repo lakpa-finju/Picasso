@@ -17,12 +17,10 @@ public class RandomAnalyzer extends UnaryFunctionAnalyzer {
 	
 	@Override
 	public ExpressionTreeNode generateExpressionTree(Stack<Token> tokens) {
-		//tokens.pop(); // Need to remove the random token.
+		tokens.pop(); // Need to remove the random token.
 		// // The parameter is the next token(s) on the stack.
 		// // But, it needs to be processed
-	   ExpressionTreeNode random = SemanticAnalyzer.getInstance().generateExpressionTree(
-		 		tokens);
-		return random;
+		return new RandomColor();
 	}
 }
 
