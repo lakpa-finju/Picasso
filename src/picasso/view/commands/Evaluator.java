@@ -51,19 +51,15 @@ public class Evaluator implements Command<Pixmap> {
 				historypanel.addExpressionHistory(input); 
 			}
 			else {
-				//Show error message
-				String errorFile = System.getProperty("user.dir") +
-						File.separator +"images" + File.separator + "Error_Image.png";
-				target.read(errorFile);
+				//Show error message and stop execution
+				ErrorHandler.displayError(target);
 				return;
 			}
 		}
 		catch(ParseException e){
-			//Show error message
-			String errorFile = System.getProperty("user.dir") +
-					File.separator +"images" + File.separator + "Error_Image.png";
-			target.read(errorFile);
-			return;//stop execution, wait for next input to run again
+			//Show error message and stop execution
+			ErrorHandler.displayError(target);
+			return;
 		}
 		
 		// evaluate it for each pixel
