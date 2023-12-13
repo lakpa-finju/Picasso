@@ -31,9 +31,14 @@ This code base originated as a project in a course at Duke University.  The prof
 
 ## Extension 
 
-# multiple image view
+### Multiple Image View
 This extension allows user to view multiple images at once across tab. The extension utilizes Jtabbed pane and Jpanel. To use this extensino the user should do the following in order.
 1. Click on `multi images`, once file chooser has been opened, click on `images` directory. 
 2. Select multiple images that you like to open. 
 3. Click `open` or press enter
 4. Selected images will be opened in different tabs. 
+
+### View history
+This extension allows user to see the list of the expression they entered in the program. The extension uses JTextArea, JScrollPane, and JPanel. If the expression is incorrect, it will not be saved to the history. 
+1. Type the expression in the text field as usual
+2. Hit "evaluate", and the expression will be automatically saved to the history panel on the right side. 
