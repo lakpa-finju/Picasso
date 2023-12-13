@@ -15,6 +15,8 @@ public class Writer extends FileCommand<Pixmap> {
 		super(JFileChooser.SAVE_DIALOG);
 	}
 
+	
+
 	public void execute(Pixmap target) {
 		String fileName = getFileName();
 		if (fileName != null) {

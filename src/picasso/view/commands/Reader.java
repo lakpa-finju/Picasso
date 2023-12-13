@@ -23,7 +23,7 @@ public class Reader extends FileCommand<Pixmap> {
 	public Reader() {
 		super(JFileChooser.OPEN_DIALOG);
 	}
-	
+
 	/**
 	 * Displays the image file on the given target.
 	 * If the user selects an invalid image, an error
@@ -32,19 +32,8 @@ public class Reader extends FileCommand<Pixmap> {
 	public void execute(Pixmap target) {
 		String fileName = getFileName();
 		if (fileName != null) {
-			//String suffix = fileName.substring(fileName.lastIndexOf("."));
 			target.read(fileName);
 			target.setSize(600, 600);
-			/*
-			if (suffix.equals(".png") || suffix.equals(".jpg")) {
-				target.read(fileName);
-				target.setSize(600, 600);
-			}
-			else {
-				//get user's path to the error image
-				ErrorHandler.displayImageError(target);
-			}
-			*/
 		}
 		
 		
