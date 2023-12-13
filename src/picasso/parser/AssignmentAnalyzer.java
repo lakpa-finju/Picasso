@@ -11,7 +11,7 @@ import picasso.parser.tokens.*;
 /**
  * Handles parsing the plus or "addition function".
  * 
- * @author Linh Nguyen 
+ * @author Linh Nguyen
  * 
  */
 public class AssignmentAnalyzer implements SemanticAnalyzerInterface {
@@ -40,4 +40,3 @@ public class AssignmentAnalyzer implements SemanticAnalyzerInterface {
 		}
 	}
 }
-

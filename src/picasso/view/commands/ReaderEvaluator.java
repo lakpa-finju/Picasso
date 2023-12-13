@@ -14,6 +14,7 @@ import javax.swing.JFileChooser;
 import picasso.util.FileCommand;
 
 import java.io.*;
+
 /**
  * Evaluate an expression for each pixel in a image.
  * 
@@ -24,65 +25,43 @@ import java.io.*;
 public class ReaderEvaluator extends FileCommand<Pixmap> implements Command<Pixmap> {
 	public static final double DOMAIN_MIN = -1;
 	public static final double DOMAIN_MAX = 1;
-	
-	private ButtonPanel buttonpanel; 
-	
+
+	private ButtonPanel buttonpanel;
+	private Evaluator evaluator;
+
 	/**
 	 * Constructor
+	 * 
 	 * @param mybuttonpanel
 	 */
-	public ReaderEvaluator(ButtonPanel mybuttonpanel) {
+	public ReaderEvaluator(ButtonPanel mybuttonpanel, Evaluator eval) {
 		super(JFileChooser.OPEN_DIALOG);
-		buttonpanel = mybuttonpanel; 
+		buttonpanel = mybuttonpanel;
+		evaluator = eval;
+		
 	}
+
+
 	/**
 	 * Evaluate an expression for each point in the image.
 	 */
-	//for merge
+	// for merge
 	public void execute(Pixmap target) {
 
-		// take the input from the file 
-		String fileName = getFileName(); 
+		// take the input from the file
+		String fileName = getFileName();
 		if (fileName != null) {
-			File file = new File(fileName); 
+			File file = new File(fileName);
 			BufferedReader br;
 			try {
 				br = new BufferedReader(new FileReader(file));
-				String st; 
-				//ExpressionTreeNode expr = null;
-				while ((st = br.readLine()) != null) {
-					ExpressionTreeNode expr = createExpression(st);
-					
-					/*
-					 * Error handling
-					try {
-						System.out.println("try");
-						expr = createExpression(st);//results in null
-						System.out.println(expr);
-						System.out.println(st);
-					}
-					catch (ParseException e) {
-						System.out.println("catch");
-						//Show error
-						ErrorHandler.displayError(target);
-						br.close();
-						return;//stop execution, wait for next input to run again
-					}
-					*/
-					if (expr != null) {
-						System.out.println("expr != null");
-						Dimension size = target.getSize();
-						for (int imageY = 0; imageY < size.height; imageY++) {
-							double evalY = imageToDomainScale(imageY, size.height);
-							for (int imageX = 0; imageX < size.width; imageX++) {
-								double evalX = imageToDomainScale(imageX, size.width);
-								Color pixelColor = expr.evaluate(evalX, evalY).toJavaColor();
-								target.setColor(imageX, imageY, pixelColor);
-							}
-						}
-					}
+				String st;
+				boolean stop = false;
+				while ( ((st = br.readLine()) != null) && !stop) {
+					evaluator.execute(target, st, stop);
 				}
-				br.close(); 
+				br.close();
+				//handle these exceptions appropriately
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -110,7 +89,6 @@ public class ReaderEvaluator extends FileCommand<Pixmap> implements Command<Pixm
 		// Note, when you're testing, you can use the ExpressionTreeGenerator to
 		// generate expression trees from strings, or you can create expression
 		// objects directly (as in the commented statement below).
-
 
 		ExpressionTreeGenerator expTreeGen = new ExpressionTreeGenerator();
 		return expTreeGen.makeExpression(s);

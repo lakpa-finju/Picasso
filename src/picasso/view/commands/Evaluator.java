@@ -3,6 +3,7 @@ package picasso.view.commands;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
+import java.util.EmptyStackException;
 
 import picasso.model.Pixmap;
 import picasso.parser.ExpressionTreeGenerator;
@@ -36,29 +37,38 @@ public class Evaluator implements Command<Pixmap> {
 	}
 	/**
 	 * Evaluate an expression for each point in the image.
+	 * @param target - the current Pixmap
 	 */
 	public void execute(Pixmap target) {
-
-		// create the expression to evaluate just once
 		String input = buttonpanel.getInput(); 
-//		historypanel.addExpressionHistory(input); 
+		execute(target, input, false);
+	}
+	/**
+	 * Evaluate an expression for each point in the image.
+	 * @param target - the current Pixmap
+	 * @param expression - the expression to evaluate
+	 * @param stop - controls while loop progression in ReaderEvaluator
+	 */
+	public void execute(Pixmap target, String expression, boolean stop) {
+		
+		stop = false;
 		ExpressionTreeNode expr = null;
 		
-		//Try to catch a parse exception and display the error message if so
 		try {
-			expr = createExpression(input);
+			expr = createExpression(expression);
 			if (expr != null) {
-				historypanel.addExpressionHistory(input); 
+				historypanel.addExpressionHistory(expression); 
 			}
 			else {
-				//Show error message and stop execution
-				ErrorHandler.displayInputError(target);
+				//does not display an error for anticipated null expressions
 				return;
 			}
 		}
+		//Show error message and stop execution
 		catch(ParseException e){
-			//Show error message and stop execution
-			ErrorHandler.displayInputError(target);
+			stop = true;
+			String message = e.getMessage().substring(15);
+			ErrorHandler.displayInputError(target, message);
 			return;
 		}
 		

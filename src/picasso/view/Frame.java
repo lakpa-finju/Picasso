@@ -54,8 +54,9 @@ public class Frame extends JFrame {
 		ButtonPanel commands = new ButtonPanel(canvas);
 		commands.add("multi images", this, tabPanel, size);
 		commands.add("Open Image", new Reader());
-		commands.add("Open Expression", new ReaderEvaluator(commands));
-		ThreadedCommand<Pixmap> evalutorAction = new ThreadedCommand<Pixmap>(canvas, new Evaluator(commands, history));
+		Evaluator eval = new Evaluator(commands, history);
+		commands.add("Open Expression", new ReaderEvaluator(commands, eval));
+		ThreadedCommand<Pixmap> evalutorAction = new ThreadedCommand<Pixmap>(canvas, eval);
 		commands.add("Evaluate", evalutorAction);
 		commands.add("Save", new Writer());
 		commands.enterToEvaluate(evalutorAction);
