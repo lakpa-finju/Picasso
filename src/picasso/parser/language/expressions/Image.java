@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import picasso.parser.ParseException;
 import picasso.parser.language.ExpressionTreeNode;
 
 /**
@@ -54,6 +56,7 @@ public class Image extends ExpressionTreeNode {
 			mySize = new Dimension(myImage.getWidth(), myImage.getHeight());
 		} catch (IOException e) {
 			e.printStackTrace();
+			throw new ParseException("Unable to read file: " + fileName);
 		}
 	}
 	/**

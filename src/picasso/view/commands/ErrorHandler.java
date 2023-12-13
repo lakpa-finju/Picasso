@@ -38,15 +38,17 @@ public class ErrorHandler {
 	 * @param target - the current Pixmap
 	 */
 	public static void displayInputError(Pixmap target) {
+		displayInputError(target, null);
+	}
+
+	/**
+	 * Displays the pop up error message for invalid input
+	 * @param target - the current Pixmap
+	 * @param message TODO
+	 */
+	public static void displayInputError(Pixmap target, String message) {
 		ImageIcon icon = new ImageIcon(INPUT_ERROR_PATH);
-		JOptionPane.showMessageDialog(null, null, "Input Error", JOptionPane.ERROR_MESSAGE, icon);
+		JOptionPane.showMessageDialog(null, message, "Expression Error", JOptionPane.ERROR_MESSAGE, icon);
 	}
 	
-	/**
-	 * Displays the pop up error message for invalid expressions
-	 * @param target - the current Pixmap
-	 */
-	public static void displayExpressionError(Pixmap target) {
-		return;
-	}
 }

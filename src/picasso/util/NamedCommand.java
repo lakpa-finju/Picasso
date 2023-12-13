@@ -25,6 +25,7 @@ public class NamedCommand<T> implements Command<T> {
 		return myName;
 	}
 
+
 	/**
 	 * Run the given command.
 	 */

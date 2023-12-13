@@ -27,6 +27,7 @@ public class ThreadedCommand<T> implements Command<T> {
 		isDone = true;
 	}
 
+
 	/**
 	 * Run the command on the target or cancel it if is already running.
 	 */
