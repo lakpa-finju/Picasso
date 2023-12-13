@@ -35,8 +35,10 @@ public class IdentifierAnalyzer implements SemanticAnalyzerInterface {
 		if (mapped != null) {
 			return mapped;
 		}
-
-		return null;
+		else {
+			throw new ParseException("No variable with the same name recorded"); 
+		}
+		
 	}
 	public static void variableToExpression(String idVariable, ExpressionTreeNode rightExpression) {
 		idToExpression.put(idVariable, rightExpression); 

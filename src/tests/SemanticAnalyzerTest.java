@@ -179,6 +179,7 @@ class SemanticAnalyzerTest {
 		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
 
 		assertEquals(new Assignment(new Variable("a"), new Addition(new X(), new Y())), actual);
+
 	}
 
 	@Test
