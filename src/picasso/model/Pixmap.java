@@ -178,12 +178,14 @@ public class Pixmap {
 		try {
 			myFileName = fileName;
 			myImage = ImageIO.read(new File(myFileName));
+			if (myImage == null) {
+				ErrorHandler.displayImageError(this);
+				createImage(DEFAULT_SIZE.width, DEFAULT_SIZE.height, DEFAULT_COLOR);
+			}
 			mySize = new Dimension(myImage.getWidth(), myImage.getHeight());
 		} catch (IOException e) {
 			ErrorHandler.displayImageError(this);
-		}
-		catch (NullPointerException e) {
-			ErrorHandler.displayImageError(this);
+			createImage(DEFAULT_SIZE.width, DEFAULT_SIZE.height, DEFAULT_COLOR);
 		}
 	}
 
