@@ -4,8 +4,7 @@ The program properly handles all of the test cases and error cases that Sprenkle
 * -> Trey will fix
 ! -> needs help
 
-*
-1. Opening an invalid image and then evaluating any expression does not work. Pixmap's myImage is null for some reason until you open a valid image.
+1. Resolved
 
 *
 2. Opening an image file after clicking open expression. Infinite while loop.
