@@ -22,7 +22,7 @@ import picasso.parser.tokens.functions.PerlinBWToken;
 import picasso.parser.tokens.functions.PerlinColorToken;
 import picasso.parser.tokens.functions.RgbToYCrCbToken;
 import picasso.parser.tokens.functions.ClampToken;
-
+import picasso.parser.tokens.functions.ExpToken;
 import picasso.parser.tokens.functions.SinToken;
 import picasso.parser.tokens.functions.WrapToken;
 import picasso.parser.tokens.functions.YCrCbToRGBToken;
@@ -285,5 +285,16 @@ class SemanticAnalyzerTest {
 		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
 
 		assertEquals(new PerlinBW(new X(), new Y()), actual);
+	}
+	@Test
+	void testParseExp() {
+
+		Stack<Token> tokens = new Stack<>();
+		tokens.push(new IdentifierToken("x"));
+		tokens.push(new ExpToken());
+
+		ExpressionTreeNode actual = semAnalyzer.generateExpressionTree(tokens);
+
+		assertEquals(new Exp(new X()), actual);
 	}
 }

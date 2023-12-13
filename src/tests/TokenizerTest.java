@@ -303,5 +303,14 @@ public class TokenizerTest {
 		assertEquals(new RightParenToken(), tokens.get(5));
 	}
 	
+	@Test
+	 public void testTokenizeExp() {
+	  String expression = "exp(x)";
+	  tokens = tokenizer.parseTokens(expression);
+	  assertEquals(new ExpToken(), tokens.get(0));
+	  assertEquals(new LeftParenToken(), tokens.get(1));
+	  assertEquals(new IdentifierToken("x"), tokens.get(2));
+	  assertEquals(new RightParenToken(), tokens.get(3));
+	 }
 	
 }
