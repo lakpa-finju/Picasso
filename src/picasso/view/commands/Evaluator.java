@@ -3,6 +3,7 @@ package picasso.view.commands;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
+import java.util.EmptyStackException;
 
 import picasso.model.Pixmap;
 import picasso.parser.ExpressionTreeGenerator;
@@ -44,7 +45,7 @@ public class Evaluator implements Command<Pixmap> {
 //		historypanel.addExpressionHistory(input); 
 		ExpressionTreeNode expr = null;
 		
-		//Try to catch a parse exception and display the error message if so
+		//Display the error message if so
 		try {
 			expr = createExpression(input);
 			if (expr != null) {
@@ -56,8 +57,16 @@ public class Evaluator implements Command<Pixmap> {
 				return;
 			}
 		}
+		//Show error message and stop execution
 		catch(ParseException e){
-			//Show error message and stop execution
+			ErrorHandler.displayInputError(target);
+			return;
+		}
+		catch(ClassCastException e) {
+			ErrorHandler.displayInputError(target);
+			return;
+		}
+		catch(EmptyStackException e) {
 			ErrorHandler.displayInputError(target);
 			return;
 		}

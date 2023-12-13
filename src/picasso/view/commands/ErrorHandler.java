@@ -41,4 +41,12 @@ public class ErrorHandler {
 		ImageIcon icon = new ImageIcon(INPUT_ERROR_PATH);
 		JOptionPane.showMessageDialog(null, null, "Input Error", JOptionPane.ERROR_MESSAGE, icon);
 	}
+	
+	/**
+	 * Displays the pop up error message for invalid expressions
+	 * @param target - the current Pixmap
+	 */
+	public static void displayExpressionError(Pixmap target) {
+		return;
+	}
 }
