@@ -412,5 +412,18 @@ public class EvaluatorTests {
 					myTree.evaluate(testVal, testVal));
 		}
 	}
-	
+	@Test
+	public void testExpEvaluation() {
+		Exp myTree = new Exp(new X());
+
+		// test the ints; remember that y's value doesn't matter
+
+		double[] tests = { -.7, -.00001, .000001, .5 };
+
+		for (double testVal : tests) {
+			double absOfTestVal = Math.exp(testVal);
+			assertEquals(new RGBColor(absOfTestVal, absOfTestVal, absOfTestVal), myTree.evaluate(testVal,-1 ));
+			assertEquals(new RGBColor(absOfTestVal, absOfTestVal, absOfTestVal), myTree.evaluate(testVal, testVal));
+		}
+	}
 }
