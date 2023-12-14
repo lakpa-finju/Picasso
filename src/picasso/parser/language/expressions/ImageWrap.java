@@ -2,6 +2,7 @@
  * 
  */
 package picasso.parser.language.expressions;
+import java.awt.Color;
 import java.awt.Dimension;
 import picasso.parser.language.ExpressionTreeNode;
 import picasso.parser.tokens.StringToken;
