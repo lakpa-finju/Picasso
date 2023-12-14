@@ -10,7 +10,12 @@ import java.util.Random;
  */
 public class RandomColor extends NoArgumentFunction{
     
+	private double red, green, blue;
     public RandomColor(){
+		Random rand = new Random();
+		red = -1.0 + 2 * rand.nextDouble();
+		green = -1.0 + 2 * rand.nextDouble();
+		blue = -1.0 + 2 * rand.nextDouble();
     }
 
     /**
@@ -19,14 +24,8 @@ public class RandomColor extends NoArgumentFunction{
 	 * 
 	 * @return the random RGBColor
 	 */
-    @Override
+    @Override 
 	public RGBColor evaluate(double x, double y) {
-        Random rand = new Random();
-
-		double red = -1.0 + 2 * rand.nextDouble();
-		double green = -1.0 + 2 * rand.nextDouble();
-		double blue = -1.0 + 2 * rand.nextDouble();
-
-		return new RGBColor(red, green, blue);
+		return new RGBColor(this.red, this.green, this.blue);
 	}
 }
