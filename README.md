@@ -64,7 +64,7 @@ To use this extension, type **julia("real", "imaginary")** into the text box.
 The value that the user can vary is a complex number, so each string represents the real and imaginary portions respectively.
 The values passed to julia() **MUST** be strings or the program will be unable to parse the expression.
 Watch your fractal appear!
-Here are some interesting values of c to try:
+Here are some interesting values of z to try:
 
 ("-0.4", "0.6")
 
