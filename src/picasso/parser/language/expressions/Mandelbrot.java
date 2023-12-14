@@ -1,8 +1,6 @@
 package picasso.parser.language.expressions;
 
 import picasso.parser.language.math.ComplexNumber;
-import picasso.parser.language.math.Wrapper;
-import picasso.parser.language.math.Clipper;
 
 /**
  * This class represents the Mandelbrot function.
@@ -19,6 +17,13 @@ public class Mandelbrot extends NoArgumentFunction{
 	public Mandelbrot() {
 	}
 
+	/**
+	 * Determines whether c is in the 
+	 * Mandelbrot set.
+	 * 
+	 * @param c, a complex number 
+	 * @return the number of iterations
+	 */
 	public static int mandelbrot(ComplexNumber c){
 		ComplexNumber z = new ComplexNumber(0, 0);
 		int i = 0;

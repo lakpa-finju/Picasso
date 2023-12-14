@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Random;
 import java.util.Stack;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -58,6 +59,86 @@ public class ExpressionTreeGeneratorTests {
 
 		e = parser.makeExpression("x + y + [ -.51, 0, 1]");
 		assertEquals(new Addition(new Addition(new X(), new Y()), new RGBColor(-.51, 0, 1)), e);
+	}
+
+	@Test
+	public void multiplicationExpressionTests() {
+		ExpressionTreeNode e = parser.makeExpression("x * y");
+		assertEquals(new Multiplication(new X(), new Y()), e);
+
+		// no spaces!
+		e = parser.makeExpression("x*y");
+		assertEquals(new Multiplication(new X(), new Y()), e);
+
+		e = parser.makeExpression("[1,.3,-1] * y");
+		assertEquals(new Multiplication(new RGBColor(1, .3, -1), new Y()), e);
+
+		e = parser.makeExpression("x * y * [ -.51, 0, 1]");
+		assertEquals(new Multiplication(new Multiplication(new X(), new Y()), new RGBColor(-.51, 0, 1)), e);
+	}
+
+	@Test
+	public void subtractionExpressionTests() {
+		ExpressionTreeNode e = parser.makeExpression("x - y");
+		assertEquals(new Subtraction(new X(), new Y()), e);
+
+		// no spaces!
+		e = parser.makeExpression("x-y");
+		assertEquals(new Subtraction(new X(), new Y()), e);
+
+		e = parser.makeExpression("[1,.3,-1] - y");
+		assertEquals(new Subtraction(new RGBColor(1, .3, -1), new Y()), e);
+
+		e = parser.makeExpression("x - y - [ -.51, 0, 1]");
+		assertEquals(new Subtraction(new Subtraction(new X(), new Y()), new RGBColor(-.51, 0, 1)), e);
+	}
+
+	@Test
+	public void divisionExpressionTests() {
+		ExpressionTreeNode e = parser.makeExpression("x / y");
+		assertEquals(new Division(new X(), new Y()), e);
+
+		// no spaces!
+		e = parser.makeExpression("x/y");
+		assertEquals(new Division(new X(), new Y()), e);
+
+		e = parser.makeExpression("[1,.3,-1] / y");
+		assertEquals(new Division(new RGBColor(1, .3, -1), new Y()), e);
+
+		e = parser.makeExpression("x / y / [ -.51, 0, 1]");
+		assertEquals(new Division(new Division(new X(), new Y()), new RGBColor(-.51, 0, 1)), e);
+	}
+
+	@Test
+	public void moduloExpressionTests() {
+		ExpressionTreeNode e = parser.makeExpression("x % y");
+		assertEquals(new Modulo(new X(), new Y()), e);
+
+		// no spaces!
+		e = parser.makeExpression("x%y");
+		assertEquals(new Modulo(new X(), new Y()), e);
+
+		e = parser.makeExpression("[1,.3,-1] % y");
+		assertEquals(new Modulo(new RGBColor(1, .3, -1), new Y()), e);
+
+		e = parser.makeExpression("x % y % [ -.51, 0, 1]");
+		assertEquals(new Modulo(new Modulo(new X(), new Y()), new RGBColor(-.51, 0, 1)), e);
+	}
+
+	@Test
+	public void exponentiationExpressionTests() {
+		ExpressionTreeNode e = parser.makeExpression("x ^ y");
+		assertEquals(new Exponentiation(new X(), new Y()), e);
+
+		// no spaces!
+		e = parser.makeExpression("x^y");
+		assertEquals(new Exponentiation(new X(), new Y()), e);
+
+		e = parser.makeExpression("[1,.3,-1] ^ y");
+		assertEquals(new Exponentiation(new RGBColor(1, .3, -1), new Y()), e);
+
+		e = parser.makeExpression("x ^ y ^ [ -.51, 0, 1]");
+		assertEquals(new Exponentiation(new Exponentiation(new X(), new Y()), new RGBColor(-.51, 0, 1)), e);
 	}
 
 	@Test
@@ -139,6 +220,77 @@ public class ExpressionTreeGeneratorTests {
 		assertEquals(new Sin(new Addition(new X(), new Y())), e);
 
 	}
+
+	@Test
+	public void cosFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("cos( x )");
+		assertEquals(new Cosine(new X()), e);
+
+		e = parser.makeExpression("cos( x + y )");
+		assertEquals(new Cosine(new Addition(new X(), new Y())), e);
+
+	}
+
+	@Test
+	public void tanFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("tan( x )");
+		assertEquals(new Tan(new X()), e);
+
+		e = parser.makeExpression("tan( x + y )");
+		assertEquals(new Tan(new Addition(new X(), new Y())), e);
+
+	}
+
+	@Test
+	public void atanFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("atan( x )");
+		assertEquals(new Atan(new X()), e);
+
+		e = parser.makeExpression("atan( x + y )");
+		assertEquals(new Atan(new Addition(new X(), new Y())), e);
+
+	}
+
+	@Test
+	public void logFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("log( x )");
+		assertEquals(new Log(new X()), e);
+
+		e = parser.makeExpression("log( x + y )");
+		assertEquals(new Log(new Addition(new X(), new Y())), e);
+
+	}
+
+	@Test
+	public void randomFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("random");
+		assertEquals(new RandomColor(), e);
+
+		e = parser.makeExpression("cos( random() )");
+		assertEquals(new Cosine(new RandomColor()), e);
+
+	}
+
+	@Test
+	public void mandelbrotFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("mandelbrot");
+		assertEquals(new Mandelbrot(), e);
+
+		e = parser.makeExpression("cos( mandelbrot() )");
+		assertEquals(new Cosine(new Mandelbrot()), e);
+
+	}
+
+	@Test
+	public void negateFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("!x");
+		assertEquals(new Negate(new X()), e);
+
+		e = parser.makeExpression("!cos( x )");
+		assertEquals(new Negate(new Cosine(new X())), e);
+
+	}
+	
 	
 	@Test
 	public void rgbToYCrCbFunctionTests() {
@@ -169,6 +321,21 @@ public class ExpressionTreeGeneratorTests {
 		e = parser.makeExpression("imageWrap(\"vortex.jpg\", x, y)");
 		StringToken stringToken = new StringToken("vortex.jpg");
 		assertEquals(new ImageWrap(stringToken, new X(),  new Y()), e);
+				
+
+	}
+
+	@Test
+	public void juliaFunctionTests() {
+		ExpressionTreeNode e = parser.makeExpression("julia(\".158\", \".4\")");
+		StringToken stringTok1 = new StringToken(".158");
+		StringToken stringTok2 = new StringToken(".4");
+		assertEquals(new Julia(stringTok1, stringTok2), e);
+		
+		e = parser.makeExpression("julia(\"-.8\", \"1.0\")");
+		StringToken stringTok3 = new StringToken("-.8");
+		StringToken stringTok4 = new StringToken("1.0");
+		assertEquals(new Julia(stringTok3, stringTok4), e);
 				
 
 	}
