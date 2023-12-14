@@ -41,7 +41,7 @@ public class Evaluator implements Command<Pixmap> {
 	 */
 	public void execute(Pixmap target) {
 		String input = buttonpanel.getInput(); 
-		execute(target, input, false);
+		execute(target, input);
 	}
 	/**
 	 * Evaluate an expression for each point in the image.
@@ -49,9 +49,9 @@ public class Evaluator implements Command<Pixmap> {
 	 * @param expression - the expression to evaluate
 	 * @param stop - controls while loop progression in ReaderEvaluator
 	 */
-	public void execute(Pixmap target, String expression, boolean stop) {
+	public boolean execute(Pixmap target, String expression) {
 		
-		stop = false;
+		
 		ExpressionTreeNode expr = null;
 		
 		try {
@@ -61,15 +61,15 @@ public class Evaluator implements Command<Pixmap> {
 			}
 			else {
 				//does not display an error for anticipated null expressions
-				return;
+				return false;
 			}
 		}
 		//Show error message and stop execution
 		catch(ParseException e){
-			stop = true;
+			
 			String message = e.getMessage().substring(15);
 			ErrorHandler.displayInputError(target, message);
-			return;
+			return true;
 		}
 		
 		// evaluate it for each pixel
@@ -82,6 +82,7 @@ public class Evaluator implements Command<Pixmap> {
 				target.setColor(imageX, imageY, pixelColor);
 			}
 		}
+		return false;
 	}
 
 	/**
