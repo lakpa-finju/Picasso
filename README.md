@@ -46,14 +46,14 @@ This extension allows user to see the list of the expression they entered in the
 ### FRACTALS
 ## Mandelbrot Fractal
 This part of the extension allows the user to generate an image of the Mandelbrot set.
-Here is a link to a good explanation of the Mandelbrot fractal:
+Here is a link to a good explanation of the Mandelbrot fractal: \n
 https://youtu.be/NGMRB4O922I?si=UDExcgQ0KO0-CVJk
 To use this extension, type **mandelbrot** into the text box. This expression accepts no arguments. An image of the Mandelbrot fractal will appear!
 ![mandelbrotfinal](https://github.com/WLU-CSCI209-F23/picasso-wizards/assets/78395279/bb1f0dda-7ae7-44aa-b27c-81eec369be2f)
 
 ## Julia Fractals
 This part of the extension allows the user to view custom filled Julia set fractals. 
-Here is a link explaining the Julia sets, as well as how they are related to the Mandelbrot set:
+Here is a link explaining the Julia sets, as well as how they are related to the Mandelbrot set: \n
 https://youtu.be/oCkQ7WK7vuY?si=JH3NjD_hgTyFSEPh
 To use this extension, type **julia("real", "imaginary")** into the text box.
 The value that the user can vary is a complex number, so each string represents the real and imaginary portions respectively.
