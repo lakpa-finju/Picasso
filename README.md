@@ -65,9 +65,13 @@ The value that the user can vary is a complex number, so each string represents 
 The values passed to julia() **MUST** be strings or the program will be unable to parse the expression.
 Watch your fractal appear!
 Here are some interesting values of c to try:
+
 ("-0.4", "0.6")
+
 ("-0.8", "0.156")
+
 ("-0.7269", "0.1889")
+
 ("0.285", "0.01")
 
 ![julia156](https://github.com/WLU-CSCI209-F23/picasso-wizards/assets/78395279/5da1e5a5-9c77-4856-9685-91b5be7112da)
