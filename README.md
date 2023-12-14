@@ -43,8 +43,8 @@ This extension allows user to see the list of the expression they entered in the
 1. Type the expression in the text field as usual
 2. Hit "evaluate", and the expression will be automatically saved to the history panel on the right side.
 
-### FRACTALS
-## Mandelbrot Fractal
+## FRACTALS
+### Mandelbrot Fractal
 This part of the extension allows the user to generate an image of the Mandelbrot set.
 Here is a link to a good explanation of the Mandelbrot fractal: 
 
@@ -54,7 +54,7 @@ To use this extension, type **mandelbrot** into the text box. This expression ac
 
 ![mandelbrotfinal](https://github.com/WLU-CSCI209-F23/picasso-wizards/assets/78395279/bb1f0dda-7ae7-44aa-b27c-81eec369be2f)
 
-## Julia Fractals
+### Julia Fractals
 This part of the extension allows the user to view custom filled Julia set fractals. 
 Here is a link explaining the Julia sets, as well as how they are related to the Mandelbrot set: 
 
