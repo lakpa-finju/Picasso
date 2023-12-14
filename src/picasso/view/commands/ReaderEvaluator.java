@@ -58,15 +58,14 @@ public class ReaderEvaluator extends FileCommand<Pixmap> implements Command<Pixm
 				String st;
 				boolean stop = false;
 				while ( ((st = br.readLine()) != null) && !stop) {
-					evaluator.execute(target, st, stop);
+					stop = evaluator.execute(target, st);
 				}
 				br.close();
-				//handle these exceptions appropriately
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
+				ErrorHandler.displayInputError(target, "File not found!");
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				ErrorHandler.displayInputError(target);
 				e.printStackTrace();
 			}
 
