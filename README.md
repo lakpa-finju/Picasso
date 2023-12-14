@@ -51,6 +51,7 @@ Here is a link to a good explanation of the Mandelbrot fractal:
 https://youtu.be/NGMRB4O922I?si=UDExcgQ0KO0-CVJk
 
 To use this extension, type **mandelbrot** into the text box. This expression accepts no arguments. An image of the Mandelbrot fractal will appear!
+
 ![mandelbrotfinal](https://github.com/WLU-CSCI209-F23/picasso-wizards/assets/78395279/bb1f0dda-7ae7-44aa-b27c-81eec369be2f)
 
 ## Julia Fractals
@@ -68,4 +69,5 @@ Here are some interesting values of c to try:
 ("-0.8", "0.156")
 ("-0.7269", "0.1889")
 ("0.285", "0.01")
+
 ![julia156](https://github.com/WLU-CSCI209-F23/picasso-wizards/assets/78395279/5da1e5a5-9c77-4856-9685-91b5be7112da)
