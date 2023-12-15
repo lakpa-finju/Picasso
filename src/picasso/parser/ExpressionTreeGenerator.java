@@ -186,11 +186,6 @@ public class ExpressionTreeGenerator {
 	 */
 	private int orderOfOperation(Token token) {
 
-		// TODO: Need to finish with other operators.
-
-		// TODO: DISCUSS: Is it better to have a method in the OperatorToken
-		// class that gives the order of operation?
-
 		if (token instanceof OperationInterface) {
 			OperationInterface tokenO = (OperationInterface) token;
 			return tokenO.orderOfOperation();
